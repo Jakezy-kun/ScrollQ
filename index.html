@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#1B1530" />
+    <meta name="color-scheme" content="dark" />
+    <meta
+      name="description"
+      content="ScrollQ: 100 coins of attention, a feed that never ends. Spend them on what's worth it."
+    />
+    <title>ScrollQ</title>
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon-180x180.png" />
+    <meta name="apple-mobile-web-app-title" content="ScrollQ" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Fonts load without blocking first paint; system fonts show until they arrive.
+         The onload value is allowed by hash in vercel.json's CSP: keep it byte-for-byte. -->
+    <!-- prettier-ignore -->
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'" />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+      />
+    </noscript>
+    <style>
+      /* Boot splash: paints instantly while the app loads, then React replaces it. */
+      html,
+      body {
+        margin: 0;
+        background: #110d20;
+      }
+      .boot {
+        display: flex;
+        min-height: 100dvh;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        font:
+          800 56px/1 system-ui,
+          -apple-system,
+          'Segoe UI',
+          sans-serif;
+        letter-spacing: -0.02em;
+      }
+      .boot span {
+        color: #ffb703;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root">
+      <div class="boot" aria-hidden="true">Scroll<span>Q</span></div>
+    </div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

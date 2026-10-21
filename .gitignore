@@ -1,0 +1,29 @@
+node_modules
+dist
+dev-dist
+coverage
+*.local
+.env
+.env.*
+!.env.example
+!.env.e2e
+
+# Playwright
+test-results
+playwright-report
+blob-report
+playwright/.cache
+
+# Editors / OS
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+Thumbs.db
+*.log
+
+# Local Claude/editor tooling
+/.claude
+
+# Playwright build for offline tests
+dist-e2e
