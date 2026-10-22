@@ -1,3 +1,4 @@
+import { X } from 'lucide-react';
 import { CoinCounter } from '@/components/CoinCounter';
 import { IdleMeter } from '@/components/IdleMeter';
 import { cn } from '@/lib/cn';
@@ -10,6 +11,8 @@ interface RoundTopBarProps {
   draining: boolean;
   announcement: { key: number; text: string } | null;
   live?: boolean;
+  /** Opens the "Leave this round?" sheet. */
+  onLeave: () => void;
 }
 
 export function RoundTopBar({
@@ -20,11 +23,22 @@ export function RoundTopBar({
   draining,
   announcement,
   live = false,
+  onLeave,
 }: RoundTopBarProps) {
   return (
-    <header className="relative z-10 px-4 pb-3 pt-[max(1rem,env(safe-area-inset-top))]">
-      <div className="flex items-center justify-between gap-3">
-        <CoinCounter coins={coins} draining={draining} announcement={announcement} />
+    <header className="relative z-10 pb-3 pl-1 pr-4 pt-[max(1rem,env(safe-area-inset-top))]">
+      <div className="flex items-center justify-between gap-2">
+        <div className="flex items-center">
+          <button
+            type="button"
+            onClick={onLeave}
+            aria-label="Leave round"
+            className="flex min-h-tap min-w-tap shrink-0 items-center justify-center rounded-full text-muted transition-colors duration-fast hover:bg-white/5 hover:text-fg"
+          >
+            <X className="h-6 w-6" aria-hidden="true" />
+          </button>
+          <CoinCounter coins={coins} draining={draining} announcement={announcement} />
+        </div>
         <p className="whitespace-nowrap text-sm font-semibold text-muted">
           {live && (
             <span className="mr-1.5 rounded-full bg-violet/30 px-1.5 py-0.5 text-[11px] font-bold text-fg ring-1 ring-violet">

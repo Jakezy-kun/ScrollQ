@@ -55,7 +55,7 @@ export function FeedSelectPage() {
   };
 
   return (
-    <main className={`flex min-h-dvh flex-1 flex-col px-5 pb-8 ${PAGE_WIDTH.reading}`}>
+    <main className={`flex min-h-dvh flex-1 flex-col px-5 lg:pb-8 ${PAGE_WIDTH.reading}`}>
       <ScreenHeader backTo={ROUTES.start} className="-mx-2" />
       <h1 className="mt-2 font-display text-3xl font-bold leading-tight">Pick your feed</h1>
       <p className="mt-2 text-base text-muted">Same posts, same rules. Just a different look.</p>
@@ -142,19 +142,18 @@ export function FeedSelectPage() {
         </div>
       </fieldset>
 
-      {inProgress && (
-        <p className="mt-4 text-center text-sm text-muted">
-          Starting a new round ends the one in progress.
-        </p>
-      )}
-      <Button
-        fullWidth
-        className="mt-4 lg:mt-8"
-        loading={starting}
-        onClick={() => void startRound()}
-      >
-        Start round
-      </Button>
+      {/* Phones: pinned to the bottom so the button is always on screen, even when the
+          options run past the fold. */}
+      <div className="sticky bottom-0 -mx-5 mt-2 bg-gradient-to-t from-base from-70% to-base/0 px-5 pb-[max(1rem,env(safe-area-inset-bottom))] pt-4 lg:static lg:mx-0 lg:mt-4 lg:bg-none lg:p-0">
+        {inProgress && (
+          <p className="mb-3 text-center text-sm text-muted">
+            Starting a new round ends the one in progress.
+          </p>
+        )}
+        <Button fullWidth className="lg:mt-4" loading={starting} onClick={() => void startRound()}>
+          Start round
+        </Button>
+      </div>
     </main>
   );
 }

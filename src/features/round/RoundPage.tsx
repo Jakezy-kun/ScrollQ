@@ -1,5 +1,5 @@
 import { AnimatePresence } from 'framer-motion';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Navigate, useLocation, useNavigate } from 'react-router';
 import { ROUTES } from '@/app/routes';
 import { POST_SKINS } from '@/components/post';
@@ -15,9 +15,11 @@ import {
   selectProgress,
 } from '@/engine';
 import { useIdleDrain } from '@/hooks/useIdleDrain';
+import { useReducedMotion } from '@/hooks/useReducedMotion';
 import { useRound } from '@/hooks/useRound';
 import { cn } from '@/lib/cn';
 import { IdleWarning } from './IdleWarning';
+import { LeaveRoundSheet } from './LeaveRoundSheet';
 import { OutOfCoins } from './OutOfCoins';
 import { PostDetail } from './PostDetail';
 import { PostSlide } from './PostSlide';
@@ -27,6 +29,7 @@ import { RoundTopBar } from './RoundTopBar';
 import { UpNext } from './UpNext';
 import { useRoundFeedback } from './useRoundFeedback';
 import { useRoundShortcuts } from './useRoundShortcuts';
+import { useSwipeUp } from './useSwipeUp';
 
 /** Hash pushed while a post is open, so the browser/phone Back button closes it. */
 const DETAIL_HASH = '#post';
@@ -40,14 +43,20 @@ export function RoundPage() {
     useRound.getState();
 
   const playing = round.status === 'playing';
-  const idle = useIdleDrain(playing);
+  const [leaving, setLeaving] = useState(false);
+  // Drain pauses while the player decides whether to leave.
+  const idle = useIdleDrain(playing && !leaving);
   useRoundFeedback(round);
+  const reduced = useReducedMotion();
   const post = selectCurrentPost(round);
   const pending = selectPendingPost(round);
   const open = selectOpenPost(round);
   const progress = selectProgress(round);
   const announcement = selectCoinAnnouncement(round);
   const outOfCoins = round.status === 'ended' && round.endReason === 'out_of_coins';
+  const vertical = round.feedStyle === 'vertical';
+  // The post itself is on screen and waiting for a decision (no sheet or detail on top).
+  const deciding = playing && post && !pending && !open && !leaving ? post : null;
 
   const mainRef = useRef<HTMLElement>(null);
 
@@ -102,17 +111,28 @@ export function RoundPage() {
 
   // R / S / F on a keyboard, only while the post itself is on screen.
   useRoundShortcuts(
-    playing && post && !pending && !open
-      ? { read: () => requestRead(post.id), skip: () => onSkip(post), flag: () => onFlag(post) }
+    deciding
+      ? {
+          read: () => requestRead(deciding.id),
+          skip: () => onSkip(deciding),
+          flag: () => onFlag(deciding),
+        }
       : null,
   );
+
+  // Vertical feed: swipe up to skip, like a short-video app.
+  const swipe = useSwipeUp(mainRef, vertical && deciding ? () => onSkip(deciding) : null, !reduced);
+
+  const leaveRound = () => {
+    setLeaving(false);
+    navigate(ROUTES.start);
+  };
 
   if (round.status === 'ready' || round.posts.length === 0) {
     return <Navigate to={ROUTES.feedSelect} replace />;
   }
 
   const Skin = POST_SKINS[round.feedStyle];
-  const vertical = round.feedStyle === 'vertical';
   const upcoming = round.posts.slice(round.index + 1, round.index + 3);
 
   return (
@@ -133,6 +153,7 @@ export function RoundPage() {
           draining={idle.draining}
           announcement={open ? null : announcement}
           live={round.mode === 'live'}
+          onLeave={() => setLeaving(true)}
         />
 
         <main
@@ -140,8 +161,10 @@ export function RoundPage() {
           aria-label="Feed"
           className={cn(
             'relative flex min-h-0 flex-1 flex-col px-3 pb-3',
-            vertical ? 'overflow-hidden' : 'overflow-y-auto',
+            // Vertical: the page never scrolls, so vertical drags are free for swipe-to-skip.
+            vertical ? 'touch-pan-x touch-pinch-zoom overflow-hidden' : 'overflow-y-auto',
           )}
+          {...(vertical ? swipe : {})}
         >
           {post && (
             <AnimatePresence initial>
@@ -184,6 +207,14 @@ export function RoundPage() {
             ? { value: round.ratings[open.id] ?? null, onRate: ratePost }
             : undefined
         }
+      />
+
+      <LeaveRoundSheet
+        open={leaving && playing}
+        current={progress.current}
+        total={progress.total}
+        onLeave={leaveRound}
+        onStay={() => setLeaving(false)}
       />
 
       {outOfCoins && (

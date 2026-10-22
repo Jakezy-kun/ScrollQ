@@ -176,6 +176,82 @@ describe('RoundPage', () => {
     expect(coins()).toBe(100);
   });
 
+  it('asks before leaving, keeps the round, and pauses drain while asking', async () => {
+    const user = userEvent.setup();
+    startRound();
+    renderRoute(ROUTES.round, <RoundPage />, { others: [...others, ROUTES.start] });
+
+    await user.click(screen.getByRole('button', { name: 'Leave round' }));
+    const sheet = screen.getByRole('dialog', { name: 'Leave this round?' });
+    expect(within(sheet).getByRole('button', { name: 'Keep playing' })).toHaveFocus();
+    // Shortcuts don't act on the post behind the sheet.
+    await user.keyboard('s');
+    expect(useRound.getState().round.index).toBe(0);
+
+    await user.click(within(sheet).getByRole('button', { name: 'Keep playing' }));
+    await waitFor(() => expect(screen.queryByRole('dialog')).not.toBeInTheDocument());
+
+    await user.click(screen.getByRole('button', { name: 'Leave round' }));
+    await user.click(screen.getByRole('button', { name: 'Leave' }));
+    expect(await screen.findByText(`Page ${ROUTES.start}`)).toBeInTheDocument();
+    expect(useRound.getState().round.status).toBe('playing');
+  });
+
+  it('does not drain idle coins while the leave sheet is open', () => {
+    vi.useFakeTimers();
+    startRound();
+    renderRoute(ROUTES.round, <RoundPage />, { others });
+
+    fireEvent.click(screen.getByRole('button', { name: 'Leave round' }));
+    act(() => vi.advanceTimersByTime(30_000));
+    expect(coins()).toBe(100);
+  });
+
+  describe('swipe up to skip (vertical feed)', () => {
+    const touch = { pointerId: 1, pointerType: 'touch', isPrimary: true, clientX: 100 };
+    const swipe = (from: number, to: number) => {
+      const feed = screen.getByRole('main', { name: 'Feed' });
+      fireEvent.pointerDown(feed, { ...touch, clientY: from });
+      fireEvent.pointerMove(feed, { ...touch, clientY: to });
+      fireEvent.pointerUp(feed, { ...touch, clientY: to });
+    };
+
+    function startVertical() {
+      const posts = deck();
+      useRound.getState().start(posts, 'vertical');
+      useRound.getState().postShown(posts[0]!.id);
+      renderRoute(ROUTES.round, <RoundPage />, { others });
+    }
+
+    it('skips the post on a long swipe up', async () => {
+      startVertical();
+      swipe(600, 450);
+      expect(await screen.findByText('Skipped')).toBeInTheDocument();
+      expect(useRound.getState().round.decisions.map((d) => d.choice)).toEqual(['skip']);
+    });
+
+    it('ignores small drags, downward drags, sideways drags and mouse drags', () => {
+      startVertical();
+      swipe(600, 580);
+      swipe(400, 600);
+      const feed = screen.getByRole('main', { name: 'Feed' });
+      fireEvent.pointerDown(feed, { ...touch, clientY: 600 });
+      fireEvent.pointerMove(feed, { ...touch, clientX: 200, clientY: 590 });
+      fireEvent.pointerUp(feed, { ...touch, clientX: 200, clientY: 400 });
+      const mouse = { ...touch, pointerType: 'mouse' };
+      fireEvent.pointerDown(feed, { ...mouse, clientY: 600 });
+      fireEvent.pointerUp(feed, { ...mouse, clientY: 300 });
+      expect(useRound.getState().round.index).toBe(0);
+    });
+
+    it('is off in the other feed styles', () => {
+      startRound();
+      renderRoute(ROUTES.round, <RoundPage />, { others });
+      swipe(600, 300);
+      expect(useRound.getState().round.index).toBe(0);
+    });
+  });
+
   it('shows the out-of-attention moment, then goes to the summary', () => {
     vi.useFakeTimers();
     startRound(deck(), 1);
