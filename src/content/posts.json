@@ -6,6 +6,7 @@
     "body": "1. Spaced repetition: review your notes after 1 day, 3 days, then a week. Your brain keeps what it revisits.\n\n2. Active recall: close the book and quiz yourself. Struggling to remember is what makes it stick.\n\n3. Interleaving: mix topics in one session instead of doing 3 hours of one subject.\n\n4. Short breaks: 25 minutes of focus, 5 minutes off. Phone stays in another room.\n\n5. Teach it: explain the lesson out loud like you are teaching a friend. Gaps show up fast.",
     "cost": 5,
     "skinMedia": { "color": "#3B2F6B", "glyph": "📚" },
+    "community": "studytips",
     "isTrap": false,
     "trapType": null,
     "why": "Five research-backed techniques you can use at your next study session."
@@ -17,6 +18,7 @@
     "body": "Before you share a dramatic photo, take 30 seconds:\n\n• Do a reverse image search. Old photos often get recycled as \"breaking news.\"\n\n• Look at the details: signs, weather, clothing. Do they match the place and date being claimed?\n\n• Check who posted it first. A real news outlet or an anonymous page?\n\n• Look for weird edges, warped hands or melted text. These are common signs of edited or AI-made images.\n\nIf you can't verify it, don't share it.",
     "cost": 6,
     "skinMedia": { "color": "#22385E", "glyph": "🔍" },
+    "community": "medialiteracy",
     "isTrap": false,
     "trapType": null,
     "why": "Teaches a 30-second check that stops you from spreading fake photos."
@@ -28,6 +30,7 @@
     "body": "A tropical depression may strengthen into a typhoon within 48 hours. Follow official PAGASA bulletins, not forwarded messages.\n\nGo-bag checklist:\n• Water (3 liters per person per day)\n• Canned food and a manual can opener\n• Flashlight, power bank, extra batteries\n• Copies of IDs in a waterproof pouch\n• Basic meds and a first-aid kit\n\nKnow your barangay's evacuation center and agree on a meeting point with your family.",
     "cost": 4,
     "skinMedia": { "color": "#1F3F55", "glyph": "🌀" },
+    "community": "weatherph",
     "isTrap": false,
     "trapType": null,
     "why": "Points you to official bulletins and gives a checklist that keeps your family safe."
@@ -39,6 +42,7 @@
     "body": "Zero experience needed. The course has 6 weeks of short lessons, 20 minutes a day:\n\nWeek 1: Variables and printing\nWeek 2: If-statements and loops\nWeek 3: Lists and dictionaries\nWeek 4: Functions\nWeek 5: Reading files\nWeek 6: Build a mini budget tracker\n\nEverything runs in your browser, so you don't need a laptop with special software. A school computer or phone works. Certificate included.",
     "cost": 7,
     "skinMedia": { "color": "#1E4A47", "glyph": "🐍" },
+    "community": "learnprogramming",
     "isTrap": false,
     "trapType": null,
     "why": "A free, step-by-step path to a real skill, with no catch."
@@ -50,6 +54,7 @@
     "body": "Try the 50/30/20 split on your weekly allowance:\n\n• 50% needs: fare, food, school supplies\n• 30% wants: milk tea, games, hangouts\n• 20% savings: put it aside the day you receive it\n\nOther tips:\n• Bring baon twice a week. It adds up fast.\n• Track every spend for one week. You'll be surprised.\n• Wait 24 hours before buying anything over ₱300.",
     "cost": 5,
     "skinMedia": { "color": "#4D3A1C", "glyph": "💰" },
+    "community": "personalfinance",
     "isTrap": false,
     "trapType": null,
     "why": "Concrete money tips that actually fit a student allowance."
@@ -61,6 +66,7 @@
     "body": "Pulling an all-nighter feels productive, but your brain stores memories while you sleep.\n\nStudents who sleep 7–9 hours before a test usually recall more than those who stay up cramming.\n\nWhat helps:\n• Stop screens 30 minutes before bed. The scroll keeps your brain wired.\n• Review your hardest topic right before sleeping.\n• Keep the same wake-up time, even on weekends.\n\nSleep is part of studying, not a break from it.",
     "cost": 4,
     "skinMedia": { "color": "#33285F", "glyph": "😴" },
+    "community": "sleephealth",
     "isTrap": false,
     "trapType": null,
     "why": "Explains how sleep helps memory, with easy steps you can try tonight."
@@ -72,6 +78,7 @@
     "body": "Landing your first job is exciting. Protect yourself:\n\n• Never pay a \"training fee\" or \"uniform deposit\" to get hired. That's a common scam.\n• Ask for your pay rate in writing, and keep every payslip.\n• If you're 15–17, the law limits you to 8 hours a day, 40 hours a week, and no night shifts (10 PM–6 AM).\n• Your school and studies come first. A good employer will work around your class schedule.\n\nNot sure if an offer is legit? Ask your guidance office or a trusted adult before saying yes.",
     "cost": 6,
     "skinMedia": { "color": "#22385E", "glyph": "🧾" },
+    "community": "firstjobs",
     "isTrap": false,
     "trapType": null,
     "why": "Practical rules that protect working students from scams and unfair hours."
@@ -83,6 +90,7 @@
     "body": "Scholarship season brings real chances and fake ones. Before you send anything:\n\n1. Legit scholarships never ask you to pay to apply.\n2. Find the offer on the agency's or school's official website, not just a shared post.\n3. Check the email address. Official offices don't use random free accounts.\n4. Never send your full ID photos or bank details to a page you can't verify.\n\nSave the official deadline in your calendar the moment you find it.",
     "cost": 5,
     "skinMedia": { "color": "#3B2F6B", "glyph": "🎓" },
+    "community": "scholarships",
     "isTrap": false,
     "trapType": null,
     "why": "Helps you chase real scholarships while avoiding fake ones that steal your info."
@@ -94,6 +102,7 @@
     "body": "Burnout isn't laziness. It's what happens when the load stays heavy for too long.\n\nSmall steps that help:\n• Break tasks into 15-minute pieces and start with the easiest one.\n• Move your body for 10 minutes. A walk counts.\n• Protect your sleep, even during exam week.\n• Talk to someone: a friend, family, or your school's guidance counselor.\n\nIf you feel overwhelmed or unsafe, the NCMH crisis hotline 1553 is free and open 24/7.",
     "cost": 5,
     "skinMedia": { "color": "#1E4A47", "glyph": "🌱" },
+    "community": "mentalhealth",
     "isTrap": false,
     "trapType": null,
     "why": "Kind, realistic advice plus a real hotline for when things get heavy."
@@ -105,6 +114,7 @@
     "body": "Heavy rain again? Stay safe:\n\n• Avoid wading through floodwater. It can hide open manholes and carry leptospirosis.\n• If you had to wade and later get a fever or muscle pain, see a doctor right away and mention the flood.\n• Switch off the main power before water reaches outlets.\n• Move important papers and gadgets up high early.\n• Follow your barangay's advisories on when to evacuate.",
     "cost": 4,
     "skinMedia": { "color": "#1F3F55", "glyph": "🌊" },
+    "community": "weatherph",
     "isTrap": false,
     "trapType": null,
     "why": "Clear safety steps for floods, including a health risk many people miss."
@@ -116,6 +126,7 @@
     "body": "Headlines are written to get clicks. Before you react or share, ask:\n\n1. Who is the source? A named outlet or expert, or \"sources say\"?\n2. When was it published? Old stories often come back as new.\n3. What's missing? Numbers, names, the other side of the story?\n\nIf the article doesn't answer these, look for the same story from a second outlet.",
     "cost": 4,
     "skinMedia": { "color": "#33285F", "glyph": "📰" },
+    "community": "medialiteracy",
     "isTrap": false,
     "trapType": null,
     "why": "Three questions that make you harder to fool with any headline."
@@ -127,6 +138,7 @@
     "body": "Students get a 20% discount on public transport fares like jeeps, buses and trains.\n\nTo claim it:\n• Show your valid school ID when you pay.\n• Ask politely if the driver or conductor forgets.\n• The discount applies on school days and weekends.\n\nThat's real savings on a daily commute. Add it to your budget plan.",
     "cost": 3,
     "skinMedia": { "color": "#4D3A1C", "glyph": "🚌" },
+    "community": "commuteph",
     "isTrap": false,
     "trapType": null,
     "why": "A small, real money-saver most students can use every day."
@@ -138,6 +150,7 @@
     "body": "No work experience? You still have plenty to put down.\n\n• Contact info: a simple, professional email address.\n• Education: school, strand or course, year level.\n• Skills: computer skills, languages, anything you're good at.\n• Activities: org roles, school projects, volunteering.\n• Keep it to one page, and save it as a PDF.\n\nAsk a teacher to look it over before you send it.",
     "cost": 6,
     "skinMedia": { "color": "#22385E", "glyph": "📝" },
+    "community": "careers",
     "isTrap": false,
     "trapType": null,
     "why": "A simple template you can use this week for OJT or a part-time job."
@@ -149,6 +162,7 @@
     "body": "Passwords leak. 2-step verification means a stolen password alone isn't enough to get into your account.\n\n• Go to your account's security settings and turn on 2-step verification.\n• Use an authenticator app if you can. It's safer than text codes.\n• Save your backup codes somewhere offline.\n• Never share a login code with anyone, even someone claiming to be \"support.\"\n\nStart with your email. It's the key to resetting everything else.",
     "cost": 5,
     "skinMedia": { "color": "#1E4A47", "glyph": "🔐" },
+    "community": "cybersecurity",
     "isTrap": false,
     "trapType": null,
     "why": "One five-minute setting that protects all your accounts."
@@ -160,6 +174,7 @@
     "body": "Group work goes better with a little structure:\n\n• Agree on roles in the first meeting: leader, researcher, writer, designer.\n• Use one shared doc so everyone sees progress.\n• Set your own deadline 2 days before the real one.\n• Write down who does what. It's fairer and easier to report.\n\nIf someone isn't contributing, talk to them first, then your teacher.",
     "cost": 4,
     "skinMedia": { "color": "#3B2F6B", "glyph": "🤝" },
+    "community": "studytips",
     "isTrap": false,
     "trapType": null,
     "why": "Simple structure that saves your grade and your friendships."
@@ -171,6 +186,7 @@
     "body": "So this teacher walked into class...\n\nLooked at everyone...\n\nAnd said \"Good morning, please take out your notebooks.\"\n\nThat's it. That's the post. 😭\n\nFollow for more unbelievable school moments!! Part 2 coming soon!!!",
     "cost": 6,
     "skinMedia": { "color": "#5B2645", "glyph": "😱" },
+    "community": "schooltea",
     "isTrap": true,
     "trapType": "clickbait",
     "why": "Hypes a 'shocking' story that turns out to be nothing, just to farm follows."
@@ -182,6 +198,7 @@
     "body": "You KNOW who I'm talking about. Everyone is thinking it, but nobody says it.\n\nThey're the reason everything is getting worse. Don't believe me? Look around.\n\nShare this if you're fed up. Comment below if you agree. And if you don't agree... maybe YOU'RE part of the problem. 😤\n\n(No sources. Just vibes.)",
     "cost": 5,
     "skinMedia": { "color": "#5B2645", "glyph": "😤" },
+    "community": "hottakes",
     "isTrap": true,
     "trapType": "rage_bait",
     "why": "Blames a vague 'them' with no sources, just to make you angry enough to share."
@@ -193,6 +210,7 @@
     "body": "Doctors DON'T want you to know about this simple drink!\n\nJust mix warm water, lemon, and our special Miracle Powder™ every morning. It cures colds, fever, diabetes, even serious diseases. In just 3 days!!\n\nThousands of people have stopped taking their medicine already.\n\nOrder now: only ₱1,999 for a 7-day supply. Limited stocks!",
     "cost": 8,
     "skinMedia": { "color": "#4D3A1C", "glyph": "🧪" },
+    "community": "wellnesstips",
     "isTrap": true,
     "trapType": "fake_news",
     "why": "Promises a cure with no source: classic health misinformation that's also selling you something."
@@ -204,6 +222,7 @@
     "body": "...and that's when my cousin's ex-classmate's neighbor finally opened the door. 👀\n\nBut wait, to understand why that matters, you need to watch parts 12, 23 and 38 first.\n\nWe're almost at the good part, I promise.\n\nPart 48 drops tomorrow! Turn on notifications so you don't miss it!!",
     "cost": 7,
     "skinMedia": { "color": "#33285F", "glyph": "📺" },
+    "community": "storytime",
     "isTrap": true,
     "trapType": "time_waster",
     "why": "Built to keep you coming back for 90 parts. The 'good part' never arrives."
@@ -215,6 +234,7 @@
     "body": "8 ÷ 2(2+2) = ?\n\n99% of people get this WRONG! 🤯\n\nComment your answer below and tag 3 friends who think they're smart!\n\nWe'll reveal the answer... eventually. Make sure to follow first!",
     "cost": 3,
     "skinMedia": { "color": "#3B2F6B", "glyph": "🧠" },
+    "community": "brainteasers",
     "isTrap": true,
     "trapType": "engagement_bait",
     "why": "A trick question made to farm comments and tags. The answer never comes."
@@ -226,6 +246,7 @@
     "body": "A friend of a friend who works near a studio says a VERY famous celebrity said something SHOCKING backstage. 😱\n\nWe can't say who. We can't say what. But trust us, it's huge.\n\nSources: \"people are talking.\"\n\nStay tuned!!",
     "cost": 6,
     "skinMedia": { "color": "#5B2645", "glyph": "⭐" },
+    "community": "celebgossip",
     "isTrap": true,
     "trapType": "clickbait",
     "why": "'A friend of a friend' isn't a source. It's unverified gossip dressed up as news."
@@ -237,6 +258,7 @@
     "body": "It's happening everywhere. 😳\n\nTeachers are worried. Parents are panicking. And it's all because of ONE app that's on your phone right now.\n\nWhich app? We'll tell you in the comments... 👇\n\n(Check the comments. Then check our page. Then follow us for Part 2.)",
     "cost": 5,
     "skinMedia": { "color": "#4D3A1C", "glyph": "📱" },
+    "community": "trendingph",
     "isTrap": true,
     "trapType": "clickbait",
     "why": "A huge claim with zero facts. The headline was the whole product."
@@ -248,6 +270,7 @@
     "body": "Saw a student sitting on a bench looking at their phone for 10 minutes. TEN MINUTES. 🙄\n\nThis generation doesn't want to work. Back in my day we studied 20 hours a day and never complained.\n\nShare this if you agree. If you're offended, you're probably one of them.",
     "cost": 4,
     "skinMedia": { "color": "#5B2645", "glyph": "🙄" },
+    "community": "unpopularopinion",
     "isTrap": true,
     "trapType": "rage_bait",
     "why": "One random moment used to insult a whole group, so you'll comment and share in anger."
@@ -259,6 +282,7 @@
     "body": "We all know which strand I'm talking about. 😒\n\nThey act like their subjects are the only hard ones. They look down on everyone else. They think they own the school.\n\nTag a friend from the BETTER strand. Let's settle this in the comments. 🔥",
     "cost": 4,
     "skinMedia": { "color": "#5B2645", "glyph": "🔥" },
+    "community": "shsstrands",
     "isTrap": true,
     "trapType": "rage_bait",
     "why": "Turns students against each other to start a comment war. Nobody learns anything."
@@ -270,6 +294,7 @@
     "body": "BREAKING!!! 🚨 A memo is going around saying ALL classes are suspended until next year!!\n\n(Photo of a memo with no letterhead, no signature, and three spelling mistakes.)\n\nWe can't confirm where it came from, but share it with your classmates just in case!!",
     "cost": 5,
     "skinMedia": { "color": "#22385E", "glyph": "🚨" },
+    "community": "breakingnews",
     "isTrap": true,
     "trapType": "fake_news",
     "why": "A 'memo' with no source or official page behind it. Check your school's official account first."
@@ -281,6 +306,7 @@
     "body": "Forwarded many times ⏩\n\n\"My cousin works at the weather office and he says a Signal No. 6 super typhoon will hit tomorrow. The government is keeping it quiet so people won't panic. Stock up NOW and forward this to everyone you love!!\"",
     "cost": 3,
     "skinMedia": { "color": "#1F3F55", "glyph": "🎙️" },
+    "community": "viralph",
     "isTrap": true,
     "trapType": "fake_news",
     "why": "There's no Signal No. 6: PAGASA's scale stops at 5. Viral voice notes aren't weather bulletins."
@@ -292,6 +318,7 @@
     "body": "🐱 Cat #1 falls off a table.\n🐱 Cat #2 falls off a slightly different table.\n🐱 Cat #3 falls off... a table.\n\n...197 more to go! Don't stop now, the best ones are at the end!! (Probably.)\n\nAutoplay is ON. ▶️",
     "cost": 7,
     "skinMedia": { "color": "#33285F", "glyph": "🐱" },
+    "community": "catvideos",
     "isTrap": true,
     "trapType": "time_waster",
     "why": "Fun for a minute, but built to keep you watching for hours with nothing to take away."
@@ -303,6 +330,7 @@
     "body": "Box #1,204: another gray one. 😩\n\nWill tomorrow be the day? Will it be gold?? Nobody knows!!\n\nWatch the whole series from Day 1 to catch up. Then come back tomorrow. And the day after. 📦📦📦",
     "cost": 6,
     "skinMedia": { "color": "#4D3A1C", "glyph": "📦" },
+    "community": "unboxing",
     "isTrap": true,
     "trapType": "time_waster",
     "why": "An endless series with no payoff. The 'next episode' is the whole point."
@@ -314,6 +342,7 @@
     "body": "This post found you for a reason. ✨\n\nType YES in the comments in the next 5 seconds and good luck will follow you all week.\n\nScroll past and... well. Don't say we didn't warn you. 😶\n\n5... 4... 3...",
     "cost": 3,
     "skinMedia": { "color": "#3B2F6B", "glyph": "🍀" },
+    "community": "goodvibes",
     "isTrap": true,
     "trapType": "engagement_bait",
     "why": "Uses guilt and superstition to farm comments. Typing 'YES' changes nothing."
@@ -325,6 +354,7 @@
     "body": "🎉 MEGA GIVEAWAY 🎉\n\nTo join:\n1. Like this post\n2. Comment your full birthday\n3. Tag 5 friends\n4. Share to your story\n\nWinners announced \"soon\"! Good luck!! 📱",
     "cost": 4,
     "skinMedia": { "color": "#5B2645", "glyph": "🎁" },
+    "community": "freebies",
     "isTrap": true,
     "trapType": "engagement_bait",
     "why": "A fake giveaway that farms comments. Your birthday is personal info that scammers use."

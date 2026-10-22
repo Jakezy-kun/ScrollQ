@@ -2,7 +2,7 @@ import { Lock } from 'lucide-react';
 import { Avatar, CostBadge } from '@/components/post';
 import type { Post } from '@/engine';
 
-/** Locked preview of the next posts under the Gallery and Timeline skins. Decorative. */
+/** Locked preview of the next posts under every skin except Vertical. Decorative. */
 export function UpNext({ posts }: { posts: Post[] }) {
   return (
     <section className="mt-5" aria-hidden="true">

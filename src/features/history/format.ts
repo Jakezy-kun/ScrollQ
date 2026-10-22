@@ -4,6 +4,7 @@ export const FEED_STYLE_NAME: Record<FeedStyle, string> = {
   vertical: 'Vertical',
   gallery: 'Gallery',
   timeline: 'Timeline',
+  forum: 'Forum',
 };
 
 export function formatRoundDate(iso: string): string {

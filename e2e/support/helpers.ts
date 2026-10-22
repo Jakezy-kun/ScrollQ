@@ -42,7 +42,7 @@ export async function skipOnboarding(page: Page) {
 }
 
 /** Start a curated round in the given feed style from the Start screen. */
-export async function startRound(page: Page, style: 'Vertical' | 'Gallery' | 'Timeline') {
+export async function startRound(page: Page, style: 'Vertical' | 'Gallery' | 'Timeline' | 'Forum') {
   await page.getByRole('button', { name: 'Play', exact: true }).click();
   await page.getByText(style, { exact: true }).click();
   await page.getByRole('button', { name: 'Start round' }).click();

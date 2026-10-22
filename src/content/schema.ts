@@ -15,6 +15,10 @@ export const postSchema = z
       color: z.string().regex(/^#[0-9a-fA-F]{6}$/),
       glyph: z.string().min(1),
     }),
+    community: z
+      .string()
+      .regex(/^[a-z0-9_]{2,30}$/, 'community must be a lowercase name like "studytips"')
+      .optional(),
     isTrap: z.boolean(),
     trapType: z.enum(TRAP_TYPES).nullable(),
     why: z.string().min(1).max(160),

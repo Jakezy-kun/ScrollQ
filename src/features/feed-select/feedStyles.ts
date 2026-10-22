@@ -9,11 +9,16 @@ export const FEED_STYLE_OPTIONS: { id: FeedStyle; name: string; description: str
   {
     id: 'gallery',
     name: 'Gallery',
-    description: 'Photo cards with captions, like picture-sharing apps.',
+    description: 'Square photos with likes and captions, like picture-sharing apps.',
   },
   {
     id: 'timeline',
     name: 'Timeline',
-    description: 'Text-first posts in a stream, like micro-blogging apps.',
+    description: 'Short text posts with replies and reposts, like micro-blogging apps.',
+  },
+  {
+    id: 'forum',
+    name: 'Forum',
+    description: 'Posts in topic communities with up-votes, like discussion-board apps.',
   },
 ];

@@ -20,13 +20,15 @@ export interface Post {
   body: string;
   cost: number;
   skinMedia: SkinMedia;
+  /** Made-up community name (no prefix) shown by the Forum skin. Falls back to "general". */
+  community?: string;
   isTrap: boolean;
   trapType: TrapType | null;
   /** One line shown in the reveal explaining the value or the trap. */
   why: string;
 }
 
-export const FEED_STYLES = ['vertical', 'gallery', 'timeline'] as const;
+export const FEED_STYLES = ['vertical', 'gallery', 'timeline', 'forum'] as const;
 export type FeedStyle = (typeof FEED_STYLES)[number];
 
 export type RoundMode = 'curated' | 'live';

@@ -15,7 +15,7 @@ interface ActionProps {
 const base =
   'flex h-12 min-w-0 items-center justify-center gap-1.5 whitespace-nowrap rounded-xl text-[15px] font-bold transition-[transform,background-color] duration-fast ease-out active:scale-[0.97]';
 
-/** Horizontal Read / Skip / Flag bar used by the Gallery and Timeline skins. */
+/** Horizontal Read / Skip / Flag bar used by the Gallery, Timeline and Forum skins. */
 export function ActionBar({ cost, canAfford, onRead, onSkip, onFlag }: ActionProps) {
   return (
     <div className="grid grid-cols-3 gap-2">
@@ -54,15 +54,19 @@ export function ActionBar({ cost, canAfford, onRead, onSkip, onFlag }: ActionPro
   );
 }
 
-/** Vertical round-button rail used by the Vertical skin. */
+/**
+ * Right-side rail used by the Vertical skin, like the icon column on short-video apps:
+ * bare icons with a shadow and a label underneath. Read stays a filled button so the one
+ * action that costs coins is easy to spot.
+ */
 export function ActionRail({ cost, canAfford, onRead, onSkip, onFlag }: ActionProps) {
   return (
-    <div className="flex flex-col items-center gap-3">
+    <div className="flex flex-col items-center gap-2">
       <RailButton
         label={canAfford ? 'Read' : 'Need'}
         ariaLabel={readLabel(cost, canAfford)}
         onClick={onRead}
-        circleClass={canAfford ? 'bg-coral text-deep' : 'bg-white/10 text-muted'}
+        circleClass={canAfford ? 'bg-coral text-deep' : 'bg-white/15 text-muted'}
         extra={
           <span className="flex items-center gap-0.5 text-xs font-bold text-amber">
             <CoinIcon size={12} />
@@ -72,16 +76,11 @@ export function ActionRail({ cost, canAfford, onRead, onSkip, onFlag }: ActionPr
       >
         <BookOpen className="h-6 w-6" aria-hidden="true" />
       </RailButton>
-      <RailButton label="Skip" onClick={onSkip} circleClass="bg-white/15 text-fg">
-        <SkipForward className="h-6 w-6" aria-hidden="true" />
+      <RailButton label="Skip" onClick={onSkip} circleClass="text-fg">
+        <SkipForward className="h-8 w-8 fill-current" aria-hidden="true" />
       </RailButton>
-      <RailButton
-        label="Flag"
-        ariaLabel="Flag as trap"
-        onClick={onFlag}
-        circleClass="bg-deep text-coral ring-2 ring-coral/70"
-      >
-        <Flag className="h-6 w-6" aria-hidden="true" />
+      <RailButton label="Flag" ariaLabel="Flag as trap" onClick={onFlag} circleClass="text-coral">
+        <Flag className="h-8 w-8 fill-current" aria-hidden="true" />
       </RailButton>
     </div>
   );
@@ -102,17 +101,17 @@ function RailButton({ label, ariaLabel, onClick, circleClass, extra, children }:
       type="button"
       onClick={onClick}
       aria-label={ariaLabel ?? label}
-      className="group flex w-16 flex-col items-center gap-1 rounded-card"
+      className="group flex w-16 flex-col items-center gap-0.5 rounded-card"
     >
       <span
         className={cn(
-          'flex h-14 w-14 items-center justify-center rounded-full transition-transform duration-fast ease-out group-active:scale-90',
+          'flex h-12 w-12 items-center justify-center rounded-full drop-shadow-[0_1px_3px_rgba(0,0,0,0.6)] transition-transform duration-fast ease-out group-active:scale-90',
           circleClass,
         )}
       >
         {children}
       </span>
-      <span className="flex items-center gap-1 text-xs font-semibold text-fg">
+      <span className="flex items-center gap-1 text-xs font-semibold text-fg [text-shadow:0_1px_2px_rgba(0,0,0,0.7)]">
         {label}
         {extra && ' '}
         {extra}

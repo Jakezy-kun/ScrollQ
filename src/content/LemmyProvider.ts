@@ -193,6 +193,11 @@ export function mapLemmyPost(view: PostView): Post | null {
     body,
     cost: costFor(title.length + body.length),
     skinMedia: { color: hashColor(community.name), glyph: '🌐' },
+    community:
+      community.name
+        .toLowerCase()
+        .replace(/[^a-z0-9_]/g, '')
+        .slice(0, 30) || undefined,
     isTrap: false,
     trapType: null,
     why: `Live post from c/${community.name} on ${instanceHost}.`,

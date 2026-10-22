@@ -39,16 +39,17 @@ Without Supabase env vars, ScrollQ runs in **guest-only mode**: everything works
 ## Supabase setup (accounts + cloud history)
 
 1. Create a free project at [supabase.com](https://supabase.com).
-2. **Run the migration.** Open **SQL Editor**, paste [`supabase/migrations/20261022000000_init.sql`](supabase/migrations/20261022000000_init.sql) and run it. (With the Supabase CLI: `supabase link`, then `supabase db push`.) It creates:
+2. **Run the migrations.** Open **SQL Editor**, then paste and run each file in [`supabase/migrations`](supabase/migrations) in order: [`20261022000000_init.sql`](supabase/migrations/20261022000000_init.sql), then [`20261022000001_grant_authenticated.sql`](supabase/migrations/20261022000001_grant_authenticated.sql), then [`20261022000002_forum_feed_style.sql`](supabase/migrations/20261022000002_forum_feed_style.sql). (With the Supabase CLI: `supabase link`, then `supabase db push`.) Together they create:
    - `profiles` (nickname + built-in avatar id) and `rounds` (results, ledger, decisions, reflection),
    - **Row Level Security** on both: players can only select/insert/update/delete their own rows; signed-out visitors get nothing,
+   - explicit table grants for signed-in players, so it works whether or not "Automatically expose new tables" was ticked when the project was created,
    - a trigger that creates the profile on sign-up (using only the nickname typed, never a provider's real name),
    - `delete_my_account()`, a `security definer` function that deletes only the calling user; their profile and rounds cascade.
 3. **Authentication → Providers → Email:** keep Email on and turn on **Confirm email**.
 4. **Authentication → URL Configuration:**
    - **Site URL:** your Vercel URL (e.g. `https://scrollq.vercel.app`), or `http://localhost:5173` while developing.
    - **Redirect URLs:** add `http://localhost:5173/**` and `https://<your-vercel-domain>/**`. Email confirmation links return to `/`, password reset links to `/reset-password`.
-5. **Project Settings → API:** copy the **Project URL** and the **`anon` public key** into `.env.local` (copy [`.env.example`](.env.example)). Never put the service-role key in the frontend.
+5. **Project Settings → API:** copy the **Project URL** and the **`anon` public key** into `.env.local` (copy [`.env.example`](.env.example)). Use the bare URL, `https://<project>.supabase.co`, without `/rest/v1/` on the end. Never put the service-role key in the frontend.
 6. **Optional: Google sign-in.** Enable the Google provider under **Authentication → Providers** (it needs a Google Cloud OAuth client whose redirect URI is the one Supabase shows), then set `VITE_ENABLE_GOOGLE=true`.
 7. Restart `npm run dev`.
 
@@ -101,6 +102,7 @@ Each post looks like this:
   "body": "Full text, shown only after paying.\n\nBlank lines make paragraphs.",
   "cost": 5,
   "skinMedia": { "color": "#22385E", "glyph": "📚" },
+  "community": "studytips",
   "isTrap": false,
   "trapType": null,
   "why": "One line for the reveal: why it was worth it, or what kind of trap it was."
@@ -109,6 +111,7 @@ Each post looks like this:
 
 - `trapType` is `null` for valuable posts, or one of `clickbait`, `rage_bait`, `fake_news`, `time_waster`, `engagement_bait`.
 - `cost` must be within `costRange`; `skinMedia.color` is a `#RRGGBB` used for the card art.
+- `community` is optional: a made-up lowercase topic name the Forum style shows as `c/studytips`. Without it the post shows under `c/general`.
 - Keep it school-safe: no real people, brands or political parties, only made-up handles.
 - Keep the pool roughly half traps and half valuable. Rounds draw a balanced mix.
 - A Zod schema validates the file at load and in `npm test`.
