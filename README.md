@@ -58,13 +58,13 @@ Without Supabase env vars, ScrollQ runs in **guest-only mode**: everything works
 ## Deploy to Vercel
 
 1. Push the repo to GitHub and **Import** it in Vercel. The framework preset is **Vite** (build `npm run build`, output `dist`).
-2. **Settings → Environment Variables:** add `VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY` and, optionally, `VITE_ENABLE_GOOGLE=true` (for Production and Preview). Leave them out for a guest-only deploy.
+2. **Settings → Environment Variables:** add `VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY` and, optionally, `VITE_ENABLE_GOOGLE=true` and `PIXABAY_API_KEY` (for Production and Preview). Leave them out for a guest-only deploy without videos.
 3. Deploy, then add the Vercel domain to Supabase's Site URL / Redirect URLs (step 4 above).
 
 [`vercel.json`](vercel.json) does three things:
 
-- **SPA rewrite:** every path serves `index.html`, so deep links like `/history` work.
-- **Security headers:** `nosniff`, `Referrer-Policy`, `X-Frame-Options: DENY`, a tight `Permissions-Policy`, and a **Content Security Policy** that allows only this origin, Supabase (`*.supabase.co`), the Live feed (`lemmy.world`) and Google Fonts.
+- **SPA rewrite:** every path except `/api/*` serves `index.html`, so deep links like `/history` work.
+- **Security headers:** `nosniff`, `Referrer-Policy`, `X-Frame-Options: DENY`, a tight `Permissions-Policy`, and a **Content Security Policy** that allows only this origin, Supabase (`*.supabase.co`), the Live feed (`lemmy.world`), Google Fonts and Pixabay's video CDN (`cdn.pixabay.com`, video and poster images only).
 - **Caching:** hashed `/assets/*` are immutable; `index.html`, the service worker and the manifest are always revalidated.
 
 If you use a **custom Supabase domain** or a different Lemmy instance, add it to `connect-src` in the CSP. The font loader in `index.html` is allowed by a hash in the CSP; if you change that `onload` value, update the hash. Check the result locally with `npm run build && npm run preview:vercel`.
@@ -123,6 +123,15 @@ Each post looks like this:
 - NSFW posts and communities, removed posts and bot accounts are dropped, plus a best-effort word filter for school safety. Images and links are never loaded; HTML and Markdown are stripped and bodies truncated. Cost scales with text length.
 - Live posts have no trusted trap labels, so trap detection isn't scored. After reading, players answer **"Was it worth your coins?"** and the Live SQ is based on budget use and those answers.
 - If the request fails, takes longer than 4 s, is blocked, or returns too few safe posts, the round uses the curated pool and says so. Live is disabled offline.
+
+## Background videos (optional)
+
+In the **Vertical** and **Gallery** feeds, curated posts play a short, muted stock clip from the free [Pixabay API](https://pixabay.com/api/docs/), found with each post's `videoQuery` words.
+
+1. Log in at [pixabay.com/api/docs](https://pixabay.com/api/docs/); your key is shown under **key (required)**.
+2. Add `PIXABAY_API_KEY=...` to `.env.local` (no `VITE_` prefix) and restart `npm run dev`. On Vercel, add it under **Settings → Environment Variables**.
+
+How it works: the app calls `/api/videos?q=...` ([`api/videos.ts`](api/videos.ts) on Vercel, a Vite middleware in dev), which searches Pixabay with `safesearch=true`, prefers portrait clips, returns the smallest file and is cached for 24 hours as Pixabay requires. The key never reaches the browser. Without a key, offline, with data saver, or if a clip fails, posts keep their gradient art; reduced motion shows a still frame. Live-feed posts never get videos. Every clip shows a "Video: Pixabay" credit.
 
 ---
 

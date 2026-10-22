@@ -36,7 +36,7 @@ export default tseslint.config(
     },
   },
   {
-    files: ['*.config.{js,ts}', 'e2e/**'],
+    files: ['*.config.{js,ts}', 'e2e/**', 'api/**'],
     languageOptions: { globals: globals.node },
     rules: {
       'react-hooks/rules-of-hooks': 'off',

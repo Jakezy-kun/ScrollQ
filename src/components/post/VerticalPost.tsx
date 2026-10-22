@@ -3,7 +3,9 @@ import { useId } from 'react';
 import { ActionRail } from './ActionRail';
 import { Avatar, CostBadge, LockChip, LockedBody, MediaGlyph } from './PostBits';
 import { bareHandle, engagement, mediaGradient } from './postUi';
+import { PostVideo } from './PostVideo';
 import type { PostSkinProps } from './types';
+import { usePostVideo } from './usePostVideo';
 
 const shadow = '[text-shadow:0_1px_3px_rgba(0,0,0,0.6)]';
 
@@ -14,6 +16,7 @@ const shadow = '[text-shadow:0_1px_3px_rgba(0,0,0,0.6)]';
 export function VerticalPost({ post, canAfford, onRead, onSkip, onFlag }: PostSkinProps) {
   const titleId = useId();
   const { hoursAgo } = engagement(post);
+  const { video, onError } = usePostVideo(post);
   return (
     <article
       aria-labelledby={titleId}
@@ -24,7 +27,11 @@ export function VerticalPost({ post, canAfford, onRead, onSkip, onFlag }: PostSk
         glyph={post.skinMedia.glyph}
         className="absolute left-1/2 top-[38%] -translate-x-1/2 -translate-y-1/2 text-[200px] opacity-25 blur-[3px]"
       />
-      <LockedBody lines={6} className="absolute inset-x-6 top-24" barClassName="bg-white/30" />
+      {video ? (
+        <PostVideo video={video} onError={onError} creditClassName="right-3 top-12" />
+      ) : (
+        <LockedBody lines={6} className="absolute inset-x-6 top-24" barClassName="bg-white/30" />
+      )}
 
       <div
         aria-hidden="true"

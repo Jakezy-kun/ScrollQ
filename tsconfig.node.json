@@ -24,6 +24,7 @@
     "playwright.config.ts",
     "pwa-assets.config.ts",
     "src/styles/tokens.ts",
-    "e2e"
+    "e2e",
+    "api"
   ]
 }

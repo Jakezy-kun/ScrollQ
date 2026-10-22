@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import { GAME_CONFIG, TRAP_TYPES } from '@/engine';
+import { VIDEO_QUERY_PATTERN } from './videoQuery';
 import type { Post } from '@/engine';
 
 const { min, max } = GAME_CONFIG.costRange;
@@ -18,6 +19,10 @@ export const postSchema = z
     community: z
       .string()
       .regex(/^[a-z0-9_]{2,30}$/, 'community must be a lowercase name like "studytips"')
+      .optional(),
+    videoQuery: z
+      .string()
+      .regex(VIDEO_QUERY_PATTERN, 'videoQuery must be 2-40 lowercase letters and spaces')
       .optional(),
     isTrap: z.boolean(),
     trapType: z.enum(TRAP_TYPES).nullable(),

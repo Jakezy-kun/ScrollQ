@@ -22,6 +22,8 @@ export interface Post {
   skinMedia: SkinMedia;
   /** Made-up community name (no prefix) shown by the Forum skin. Falls back to "general". */
   community?: string;
+  /** Search words for a stock background clip (Vertical and Gallery skins). None = gradient. */
+  videoQuery?: string;
   isTrap: boolean;
   trapType: TrapType | null;
   /** One line shown in the reveal explaining the value or the trap. */

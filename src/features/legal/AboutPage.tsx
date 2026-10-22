@@ -47,6 +47,18 @@ export function AboutPage() {
           </li>
           <li>Fonts: Bricolage Grotesque and Plus Jakarta Sans (SIL Open Font License).</li>
           <li>Icons: Lucide (ISC License).</li>
+          <li>
+            Background videos:{' '}
+            <a
+              href="https://pixabay.com/"
+              target="_blank"
+              rel="noreferrer"
+              className="underline underline-offset-4"
+            >
+              Pixabay
+            </a>{' '}
+            (Pixabay Content License).
+          </li>
         </ul>
       </LegalSection>
 

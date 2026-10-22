@@ -7,6 +7,7 @@
     "cost": 5,
     "skinMedia": { "color": "#3B2F6B", "glyph": "📚" },
     "community": "studytips",
+    "videoQuery": "studying",
     "isTrap": false,
     "trapType": null,
     "why": "Five research-backed techniques you can use at your next study session."
@@ -19,6 +20,7 @@
     "cost": 6,
     "skinMedia": { "color": "#22385E", "glyph": "🔍" },
     "community": "medialiteracy",
+    "videoQuery": "magnifying glass",
     "isTrap": false,
     "trapType": null,
     "why": "Teaches a 30-second check that stops you from spreading fake photos."
@@ -31,6 +33,7 @@
     "cost": 4,
     "skinMedia": { "color": "#1F3F55", "glyph": "🌀" },
     "community": "weatherph",
+    "videoQuery": "storm palm trees",
     "isTrap": false,
     "trapType": null,
     "why": "Points you to official bulletins and gives a checklist that keeps your family safe."
@@ -43,6 +46,7 @@
     "cost": 7,
     "skinMedia": { "color": "#1E4A47", "glyph": "🐍" },
     "community": "learnprogramming",
+    "videoQuery": "typing laptop",
     "isTrap": false,
     "trapType": null,
     "why": "A free, step-by-step path to a real skill, with no catch."
@@ -55,6 +59,7 @@
     "cost": 5,
     "skinMedia": { "color": "#4D3A1C", "glyph": "💰" },
     "community": "personalfinance",
+    "videoQuery": "coins",
     "isTrap": false,
     "trapType": null,
     "why": "Concrete money tips that actually fit a student allowance."
@@ -67,6 +72,7 @@
     "cost": 4,
     "skinMedia": { "color": "#33285F", "glyph": "😴" },
     "community": "sleephealth",
+    "videoQuery": "alarm clock",
     "isTrap": false,
     "trapType": null,
     "why": "Explains how sleep helps memory, with easy steps you can try tonight."
@@ -79,6 +85,7 @@
     "cost": 6,
     "skinMedia": { "color": "#22385E", "glyph": "🧾" },
     "community": "firstjobs",
+    "videoQuery": "barista",
     "isTrap": false,
     "trapType": null,
     "why": "Practical rules that protect working students from scams and unfair hours."
@@ -91,6 +98,7 @@
     "cost": 5,
     "skinMedia": { "color": "#3B2F6B", "glyph": "🎓" },
     "community": "scholarships",
+    "videoQuery": "graduation",
     "isTrap": false,
     "trapType": null,
     "why": "Helps you chase real scholarships while avoiding fake ones that steal your info."
@@ -103,6 +111,7 @@
     "cost": 5,
     "skinMedia": { "color": "#1E4A47", "glyph": "🌱" },
     "community": "mentalhealth",
+    "videoQuery": "watering plants",
     "isTrap": false,
     "trapType": null,
     "why": "Kind, realistic advice plus a real hotline for when things get heavy."
@@ -115,6 +124,7 @@
     "cost": 4,
     "skinMedia": { "color": "#1F3F55", "glyph": "🌊" },
     "community": "weatherph",
+    "videoQuery": "flood street",
     "isTrap": false,
     "trapType": null,
     "why": "Clear safety steps for floods, including a health risk many people miss."
@@ -127,6 +137,7 @@
     "cost": 4,
     "skinMedia": { "color": "#33285F", "glyph": "📰" },
     "community": "medialiteracy",
+    "videoQuery": "newspaper",
     "isTrap": false,
     "trapType": null,
     "why": "Three questions that make you harder to fool with any headline."
@@ -139,6 +150,7 @@
     "cost": 3,
     "skinMedia": { "color": "#4D3A1C", "glyph": "🚌" },
     "community": "commuteph",
+    "videoQuery": "city bus",
     "isTrap": false,
     "trapType": null,
     "why": "A small, real money-saver most students can use every day."
@@ -151,6 +163,7 @@
     "cost": 6,
     "skinMedia": { "color": "#22385E", "glyph": "📝" },
     "community": "careers",
+    "videoQuery": "office documents",
     "isTrap": false,
     "trapType": null,
     "why": "A simple template you can use this week for OJT or a part-time job."
@@ -163,6 +176,7 @@
     "cost": 5,
     "skinMedia": { "color": "#1E4A47", "glyph": "🔐" },
     "community": "cybersecurity",
+    "videoQuery": "smartphone",
     "isTrap": false,
     "trapType": null,
     "why": "One five-minute setting that protects all your accounts."
@@ -175,6 +189,7 @@
     "cost": 4,
     "skinMedia": { "color": "#3B2F6B", "glyph": "🤝" },
     "community": "studytips",
+    "videoQuery": "students classroom",
     "isTrap": false,
     "trapType": null,
     "why": "Simple structure that saves your grade and your friendships."
@@ -187,6 +202,7 @@
     "cost": 6,
     "skinMedia": { "color": "#5B2645", "glyph": "😱" },
     "community": "schooltea",
+    "videoQuery": "surprised woman",
     "isTrap": true,
     "trapType": "clickbait",
     "why": "Hypes a 'shocking' story that turns out to be nothing, just to farm follows."
@@ -199,6 +215,7 @@
     "cost": 5,
     "skinMedia": { "color": "#5B2645", "glyph": "😤" },
     "community": "hottakes",
+    "videoQuery": "angry man phone",
     "isTrap": true,
     "trapType": "rage_bait",
     "why": "Blames a vague 'them' with no sources, just to make you angry enough to share."
@@ -211,6 +228,7 @@
     "cost": 8,
     "skinMedia": { "color": "#4D3A1C", "glyph": "🧪" },
     "community": "wellnesstips",
+    "videoQuery": "smoothie",
     "isTrap": true,
     "trapType": "fake_news",
     "why": "Promises a cure with no source: classic health misinformation that's also selling you something."
@@ -223,6 +241,7 @@
     "cost": 7,
     "skinMedia": { "color": "#33285F", "glyph": "📺" },
     "community": "storytime",
+    "videoQuery": "selfie video",
     "isTrap": true,
     "trapType": "time_waster",
     "why": "Built to keep you coming back for 90 parts. The 'good part' never arrives."
@@ -235,6 +254,7 @@
     "cost": 3,
     "skinMedia": { "color": "#3B2F6B", "glyph": "🧠" },
     "community": "brainteasers",
+    "videoQuery": "puzzle",
     "isTrap": true,
     "trapType": "engagement_bait",
     "why": "A trick question made to farm comments and tags. The answer never comes."
@@ -247,6 +267,7 @@
     "cost": 6,
     "skinMedia": { "color": "#5B2645", "glyph": "⭐" },
     "community": "celebgossip",
+    "videoQuery": "fashion show",
     "isTrap": true,
     "trapType": "clickbait",
     "why": "'A friend of a friend' isn't a source. It's unverified gossip dressed up as news."
@@ -259,6 +280,7 @@
     "cost": 5,
     "skinMedia": { "color": "#4D3A1C", "glyph": "📱" },
     "community": "trendingph",
+    "videoQuery": "scrolling phone",
     "isTrap": true,
     "trapType": "clickbait",
     "why": "A huge claim with zero facts. The headline was the whole product."
@@ -271,6 +293,7 @@
     "cost": 4,
     "skinMedia": { "color": "#5B2645", "glyph": "🙄" },
     "community": "unpopularopinion",
+    "videoQuery": "sleeping student",
     "isTrap": true,
     "trapType": "rage_bait",
     "why": "One random moment used to insult a whole group, so you'll comment and share in anger."
@@ -283,6 +306,7 @@
     "cost": 4,
     "skinMedia": { "color": "#5B2645", "glyph": "🔥" },
     "community": "shsstrands",
+    "videoQuery": "tug of war",
     "isTrap": true,
     "trapType": "rage_bait",
     "why": "Turns students against each other to start a comment war. Nobody learns anything."
@@ -295,6 +319,7 @@
     "cost": 5,
     "skinMedia": { "color": "#22385E", "glyph": "🚨" },
     "community": "breakingnews",
+    "videoQuery": "empty classroom",
     "isTrap": true,
     "trapType": "fake_news",
     "why": "A 'memo' with no source or official page behind it. Check your school's official account first."
@@ -307,6 +332,7 @@
     "cost": 3,
     "skinMedia": { "color": "#1F3F55", "glyph": "🎙️" },
     "community": "viralph",
+    "videoQuery": "woman phone",
     "isTrap": true,
     "trapType": "fake_news",
     "why": "There's no Signal No. 6: PAGASA's scale stops at 5. Viral voice notes aren't weather bulletins."
@@ -319,6 +345,7 @@
     "cost": 7,
     "skinMedia": { "color": "#33285F", "glyph": "🐱" },
     "community": "catvideos",
+    "videoQuery": "cat",
     "isTrap": true,
     "trapType": "time_waster",
     "why": "Fun for a minute, but built to keep you watching for hours with nothing to take away."
@@ -331,6 +358,7 @@
     "cost": 6,
     "skinMedia": { "color": "#4D3A1C", "glyph": "📦" },
     "community": "unboxing",
+    "videoQuery": "opening box",
     "isTrap": true,
     "trapType": "time_waster",
     "why": "An endless series with no payoff. The 'next episode' is the whole point."
@@ -343,6 +371,7 @@
     "cost": 3,
     "skinMedia": { "color": "#3B2F6B", "glyph": "🍀" },
     "community": "goodvibes",
+    "videoQuery": "clover",
     "isTrap": true,
     "trapType": "engagement_bait",
     "why": "Uses guilt and superstition to farm comments. Typing 'YES' changes nothing."
@@ -355,6 +384,7 @@
     "cost": 4,
     "skinMedia": { "color": "#5B2645", "glyph": "🎁" },
     "community": "freebies",
+    "videoQuery": "gift box",
     "isTrap": true,
     "trapType": "engagement_bait",
     "why": "A fake giveaway that farms comments. Your birthday is personal info that scammers use."

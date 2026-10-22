@@ -1,8 +1,11 @@
 import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import react from '@vitejs/plugin-react';
+import type { Plugin } from 'vite';
+import { loadEnv } from 'vite';
 import { VitePWA } from 'vite-plugin-pwa';
 import { defineConfig } from 'vitest/config';
+import { handleVideoRequest } from './src/server/pixabay';
 
 const pkg = JSON.parse(readFileSync(new URL('./package.json', import.meta.url), 'utf8')) as {
   version: string;
@@ -10,9 +13,29 @@ const pkg = JSON.parse(readFileSync(new URL('./package.json', import.meta.url), 
 
 const THEME = '#1B1530';
 
+/** Serves /api/videos during `npm run dev`, like the Vercel Function does in production. */
+function devVideoApi(): Plugin {
+  return {
+    name: 'scrollq-dev-video-api',
+    configureServer(server) {
+      // Not VITE_-prefixed, so the key stays on the server and never reaches the app bundle.
+      const { PIXABAY_API_KEY } = loadEnv(server.config.mode, process.cwd(), '');
+      server.middlewares.use('/api/videos', (req, res) => {
+        const params = new URL(req.url ?? '/', 'http://localhost').searchParams;
+        void handleVideoRequest(params, PIXABAY_API_KEY).then(async (response) => {
+          res.statusCode = response.status;
+          response.headers.forEach((value, key) => res.setHeader(key, value));
+          res.end(await response.text());
+        });
+      });
+    },
+  };
+}
+
 export default defineConfig({
   plugins: [
     react(),
+    devVideoApi(),
     VitePWA({
       // Ask before reloading into a new version, so a round is never cut short.
       registerType: 'prompt',
@@ -63,7 +86,8 @@ export default defineConfig({
               cacheableResponse: { statuses: [0, 200] },
             },
           },
-          // Supabase and the Live feed are never cached: they must be fresh and private.
+          // Supabase, the Live feed and Pixabay videos are never cached by the app:
+          // they must be fresh and private, and videos would fill the phone's storage.
         ],
       },
     }),

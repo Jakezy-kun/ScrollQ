@@ -77,6 +77,15 @@ export function PrivacyPage() {
         </p>
       </LegalSection>
 
+      <LegalSection title="Background videos">
+        <p>
+          In the Vertical and Gallery feeds, curated posts can show a short stock video from
+          Pixabay. The video loads from Pixabay's servers, which can see your device's IP address.
+          Videos are skipped when you're offline or have data saver on, and become still pictures
+          when you turn on reduced motion.
+        </p>
+      </LegalSection>
+
       <LegalSection title="Under 18?">
         <p>
           Many players are 15 to 17, which is why we collect so little. It's a good idea to let a

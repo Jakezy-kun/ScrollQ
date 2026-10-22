@@ -3,7 +3,9 @@ import { useId } from 'react';
 import { ActionBar } from './ActionRail';
 import { Avatar, CostBadge, LockChip, LockedBody, MediaGlyph } from './PostBits';
 import { bareHandle, engagement, mediaGradient } from './postUi';
+import { PostVideo } from './PostVideo';
 import type { PostSkinProps } from './types';
+import { usePostVideo } from './usePostVideo';
 
 /**
  * Edge-to-edge photo post, like picture-sharing apps: ringed avatar, square photo with
@@ -14,6 +16,7 @@ export function GalleryPost({ post, canAfford, onRead, onSkip, onFlag }: PostSki
   const titleId = useId();
   const stats = engagement(post);
   const handle = bareHandle(post.author);
+  const { video, onError } = usePostVideo(post);
   return (
     <article aria-labelledby={titleId} className="-mx-3 pb-1">
       <header className="flex items-center gap-2.5 px-3 pb-2.5 pt-1">
@@ -41,7 +44,15 @@ export function GalleryPost({ post, canAfford, onRead, onSkip, onFlag }: PostSki
         style={mediaGradient(post.skinMedia.color)}
       >
         <MediaGlyph glyph={post.skinMedia.glyph} className="text-[140px] opacity-60 blur-[10px]" />
-        <LockedBody lines={3} className="absolute inset-x-5 bottom-5" barClassName="bg-white/30" />
+        {video ? (
+          <PostVideo video={video} onError={onError} />
+        ) : (
+          <LockedBody
+            lines={3}
+            className="absolute inset-x-5 bottom-5"
+            barClassName="bg-white/30"
+          />
+        )}
         <span
           aria-hidden="true"
           className="absolute right-3 top-3 rounded-full bg-black/55 px-2 py-0.5 text-xs font-semibold text-fg"
