@@ -30,6 +30,151 @@
   }
 }
 
+/* Illustrations (components/illustrations): 3-second loops. The resting styles below are
+   the pose shown when reduced motion stops the animations. */
+.ill-float,
+.ill-spend,
+.ill-rise,
+.ill-twinkle,
+.ill-wipe,
+.ill-meter,
+.ill-unlock {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.ill-float {
+  animation: ill-float 3s ease-in-out infinite;
+}
+.ill-spend {
+  opacity: 0;
+  animation: ill-spend 3s ease-out infinite;
+}
+.ill-unlock {
+  animation: ill-unlock 3s ease-in-out infinite;
+}
+.ill-rise {
+  opacity: 0;
+  animation: ill-rise 3s ease-out infinite;
+}
+.ill-reveal {
+  animation: ill-reveal 3s ease-in-out infinite;
+}
+.ill-meter {
+  transform-origin: left;
+  transform: scaleX(0.8);
+  animation: ill-meter 3s linear infinite;
+}
+.ill-ring {
+  animation: ill-ring 3s cubic-bezier(0.23, 1, 0.32, 1) infinite;
+}
+.ill-twinkle {
+  animation: ill-twinkle 3s ease-in-out infinite;
+}
+.ill-scroll {
+  animation: ill-scroll 3s linear infinite;
+}
+.ill-wipe {
+  transform-origin: left;
+  animation: ill-wipe 3s ease-in-out infinite;
+}
+
+@keyframes ill-float {
+  50% {
+    transform: translateY(-8px);
+  }
+}
+@keyframes ill-spend {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0) scale(0.5);
+  }
+  15% {
+    opacity: 1;
+    transform: translate(8px, -10px) scale(1);
+  }
+  75%,
+  100% {
+    opacity: 0;
+    transform: translate(64px, -84px) scale(0.85);
+  }
+}
+@keyframes ill-unlock {
+  0%,
+  25%,
+  100% {
+    transform: translateY(0);
+  }
+  40%,
+  85% {
+    transform: translateY(-8px);
+  }
+}
+@keyframes ill-rise {
+  0%,
+  35% {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  45% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  80%,
+  100% {
+    opacity: 0;
+    transform: translateY(-18px);
+  }
+}
+@keyframes ill-reveal {
+  40%,
+  80% {
+    fill-opacity: 0.85;
+  }
+}
+@keyframes ill-meter {
+  0% {
+    transform: scaleX(0);
+  }
+  90%,
+  100% {
+    transform: scaleX(1);
+  }
+}
+@keyframes ill-ring {
+  0% {
+    stroke-dashoffset: var(--ill-full);
+  }
+  60%,
+  100% {
+    stroke-dashoffset: var(--ill-target);
+  }
+}
+@keyframes ill-twinkle {
+  0%,
+  100% {
+    opacity: 0.25;
+    transform: scale(0.6);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+@keyframes ill-scroll {
+  to {
+    transform: translateY(-264px);
+  }
+}
+@keyframes ill-wipe {
+  0% {
+    transform: scaleX(0);
+  }
+  60%,
+  100% {
+    transform: scaleX(1);
+  }
+}
+
 /* Reduced motion (OS setting or the app's own setting): CSS animations stop,
    transitions become near-instant. */
 @media (prefers-reduced-motion: reduce) {

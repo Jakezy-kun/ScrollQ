@@ -1,4 +1,5 @@
-import { Hourglass, LogIn, UserPlus, UserRound } from 'lucide-react';
+import { AnimatePresence, m } from 'framer-motion';
+import { ChevronLeft, Hourglass, LogIn, UserPlus, UserRound } from 'lucide-react';
 import type { FormEvent, ReactNode } from 'react';
 import { useId, useState } from 'react';
 import { useNavigate } from 'react-router';
@@ -6,13 +7,22 @@ import { ROUTES } from '@/app/routes';
 import { Button } from '@/components/Button';
 import { CoinIcon } from '@/components/CoinIcon';
 import { IdleMeter } from '@/components/IdleMeter';
-import { PAGE_WIDTH } from '@/components/pageWidth';
+import {
+  CoinBudgetArt,
+  FeedLoopArt,
+  PostPriceArt,
+  ScoreRevealArt,
+} from '@/components/illustrations/Illustrations';
+import { SplitPanel } from '@/components/illustrations/SplitPanel';
 import { CostBadge } from '@/components/post';
 import { ScoreRing } from '@/components/ScoreRing';
 import { SlideDeck, SlideDots } from '@/components/Slides';
 import { Wordmark } from '@/components/Wordmark';
+import { useIsDesktop } from '@/hooks/useIsDesktop';
+import { useReducedMotion } from '@/hooks/useReducedMotion';
 import { useSlides } from '@/hooks/useSlides';
 import { useAuth } from '@/lib/auth/authContext';
+import { quick } from '@/lib/motion';
 import { usePrefs } from '@/lib/prefs';
 
 const SLIDES: { title: string; body: string; visual: ReactNode }[] = [
@@ -54,10 +64,20 @@ const SLIDES: { title: string; body: string; visual: ReactNode }[] = [
 
 const CHOICE_STEP = SLIDES.length;
 
+/** Desktop only: an animated illustration for each step, matching the words beside it. */
+const STEP_ART = [
+  <CoinBudgetArt key="coins" />,
+  <PostPriceArt key="price" />,
+  <ScoreRevealArt key="score" />,
+  <FeedLoopArt key="feed" />,
+];
+
 export function OnboardingPage() {
   const navigate = useNavigate();
   const setPrefs = usePrefs((s) => s.setPrefs);
   const { index, dir, go } = useSlides(SLIDES.length + 1);
+  const desktop = useIsDesktop();
+  const reduced = useReducedMotion();
 
   const finish = (to: string) => {
     setPrefs({ onboardingSeen: true });
@@ -67,55 +87,115 @@ export function OnboardingPage() {
   const slide = SLIDES[index];
 
   return (
-    <main
-      className={`flex min-h-dvh flex-1 flex-col px-6 pb-8 pt-[max(1rem,env(safe-area-inset-top))] ${PAGE_WIDTH.narrow}`}
-    >
-      <header className="flex min-h-14 items-center justify-between">
-        <Wordmark className="text-2xl" />
-        <button
-          type="button"
-          onClick={() => finish(ROUTES.start)}
-          className="min-h-tap rounded-full px-3 text-sm font-semibold text-muted transition-colors duration-fast hover:text-fg"
-        >
-          Skip
-        </button>
-      </header>
+    // Phones: one column of slides. Laptops and PCs: a split screen, with the slide's
+    // illustration large on the left and the words and buttons on the right.
+    <main className="flex min-h-dvh flex-1 flex-col lg:grid lg:grid-cols-2">
+      {desktop && (
+        <SplitPanel aria-hidden="true">
+          <AnimatePresence mode="wait" initial={false}>
+            <m.div
+              key={index}
+              initial={reduced ? { opacity: 0 } : { opacity: 0, scale: 0.94 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={reduced ? { opacity: 0 } : { opacity: 0, scale: 0.94 }}
+              transition={quick}
+              className="flex w-full max-w-md items-center justify-center"
+            >
+              {STEP_ART[index] ?? STEP_ART[0]}
+            </m.div>
+          </AnimatePresence>
+        </SplitPanel>
+      )}
 
-      <SlideDeck
-        index={index}
-        dir={dir}
-        count={SLIDES.length + 1}
-        go={go}
-        label="Welcome to ScrollQ"
-        className="flex-1"
-      >
-        {slide ? (
-          <div className="flex min-h-[440px] flex-1 flex-col">
-            <div className="flex flex-1 items-center justify-center py-8" aria-hidden="true">
-              {slide.visual}
-            </div>
-            <h1 className="font-display text-[32px] font-bold leading-tight">{slide.title}</h1>
-            <p className="mt-3 text-lg leading-relaxed text-muted">{slide.body}</p>
-          </div>
-        ) : (
-          <ChooseHowToPlay onGuest={() => finish(ROUTES.start)} onNavigate={finish} />
-        )}
-      </SlideDeck>
+      <div className="flex flex-1 flex-col px-6 pb-8 pt-[max(1rem,env(safe-area-inset-top))] lg:mx-auto lg:w-full lg:max-w-lg lg:px-12 lg:py-10">
+        <header className="flex min-h-14 items-center justify-between">
+          <Wordmark className="text-2xl lg:text-3xl" />
+          <button
+            type="button"
+            onClick={() => finish(ROUTES.start)}
+            className="min-h-tap rounded-full px-3 text-sm font-semibold text-muted transition-colors duration-fast hover:text-fg"
+          >
+            Skip
+          </button>
+        </header>
 
-      {index < CHOICE_STEP && (
-        <>
-          <SlideDots
+        <div className="flex flex-1 flex-col lg:justify-center">
+          <SlideDeck
             index={index}
+            dir={dir}
             count={SLIDES.length + 1}
             go={go}
-            label="step"
-            className="mt-4"
-          />
-          <Button fullWidth className="mt-3" onClick={() => go(index + 1)}>
-            Next
-          </Button>
-        </>
-      )}
+            label="Welcome to ScrollQ"
+            className="flex-1 lg:flex-none"
+          >
+            {slide ? (
+              <div className="flex min-h-[440px] flex-1 flex-col lg:min-h-0 lg:flex-none">
+                {!desktop && (
+                  <div className="flex flex-1 items-center justify-center py-8" aria-hidden="true">
+                    {slide.visual}
+                  </div>
+                )}
+                <p className="mb-3 hidden text-sm font-semibold text-muted lg:block">
+                  Step {index + 1} of {SLIDES.length}
+                </p>
+                <h1 className="font-display text-[32px] font-bold leading-tight lg:text-[44px]">
+                  {slide.title}
+                </h1>
+                <p className="mt-3 text-lg leading-relaxed text-muted lg:mt-4 lg:text-xl">
+                  {slide.body}
+                </p>
+              </div>
+            ) : (
+              <ChooseHowToPlay onGuest={() => finish(ROUTES.start)} onNavigate={finish} />
+            )}
+          </SlideDeck>
+
+          {index < CHOICE_STEP ? (
+            <>
+              <SlideDots
+                index={index}
+                count={SLIDES.length + 1}
+                go={go}
+                label="step"
+                className="mt-4 lg:mt-10 lg:justify-start"
+              />
+              <div className="mt-3 flex gap-3">
+                {desktop && index > 0 && (
+                  <Button variant="secondary" onClick={() => go(index - 1)}>
+                    Back
+                  </Button>
+                )}
+                <Button fullWidth className="flex-1" onClick={() => go(index + 1)}>
+                  Next
+                </Button>
+              </div>
+            </>
+          ) : (
+            desktop && (
+              <button
+                type="button"
+                onClick={() => go(index - 1)}
+                className="mt-6 inline-flex min-h-tap items-center gap-1 self-start rounded-full pr-3 text-sm font-semibold text-muted transition-colors duration-fast hover:text-fg"
+              >
+                <ChevronLeft className="h-4 w-4" aria-hidden="true" />
+                Back
+              </button>
+            )
+          )}
+          {desktop && (
+            <p className="mt-6 text-sm text-muted">
+              Tip: use the{' '}
+              <kbd className="rounded bg-surface-2 px-1.5 py-0.5 font-sans text-xs font-bold text-fg">
+                ←
+              </kbd>{' '}
+              <kbd className="rounded bg-surface-2 px-1.5 py-0.5 font-sans text-xs font-bold text-fg">
+                →
+              </kbd>{' '}
+              arrow keys to move between steps.
+            </p>
+          )}
+        </div>
+      </div>
     </main>
   );
 }
@@ -142,8 +222,10 @@ function ChooseHowToPlay({
   };
 
   return (
-    <div className="flex min-h-[440px] flex-1 flex-col justify-end pb-2">
-      <h1 className="font-display text-[32px] font-bold leading-tight">Ready to scroll smarter?</h1>
+    <div className="flex min-h-[440px] flex-1 flex-col justify-end pb-2 lg:min-h-0 lg:flex-none">
+      <h1 className="font-display text-[32px] font-bold leading-tight lg:text-[44px]">
+        Ready to scroll smarter?
+      </h1>
       <p className="mt-3 text-lg text-muted">
         {accountsEnabled
           ? 'Play right away, or save your rounds with a free account.'

@@ -1,6 +1,7 @@
 import type { PanInfo } from 'framer-motion';
 import { AnimatePresence, m } from 'framer-motion';
 import type { ReactNode } from 'react';
+import { useEffect, useRef } from 'react';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
 import { cn } from '@/lib/cn';
 import { quick } from '@/lib/motion';
@@ -18,10 +19,34 @@ interface SlideDeckProps {
   children: ReactNode;
 }
 
-/** Swipeable slide area (dots and buttons give keyboard access). Renders only the current slide. */
+/**
+ * Swipeable slide area. Dots and buttons give keyboard access, and ← / → move between
+ * slides (not while typing or in a dialog). Renders only the current slide.
+ */
 export function SlideDeck({ index, dir, count, go, label, className, children }: SlideDeckProps) {
   const reduced = useReducedMotion();
   const offset = reduced ? 0 : 60;
+
+  const latest = useRef({ index, count, go });
+  latest.current = { index, count, go };
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.altKey || e.ctrlKey || e.metaKey || e.shiftKey) return;
+      if (
+        e.target instanceof Element &&
+        e.target.closest('input, textarea, select, [contenteditable="true"], [role="dialog"]')
+      ) {
+        return;
+      }
+      const { index: i, count: n, go: move } = latest.current;
+      if (e.key === 'ArrowRight' && i < n - 1) move(i + 1);
+      else if (e.key === 'ArrowLeft' && i > 0) move(i - 1);
+      else return;
+      e.preventDefault();
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, []);
 
   const onDragEnd = (_: unknown, info: PanInfo) => {
     if (info.offset.x < -SWIPE_PX) go(index + 1);

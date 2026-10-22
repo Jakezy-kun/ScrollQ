@@ -10,6 +10,15 @@ import { DesktopNav } from './DesktopNav';
 import { ROUTES } from './routes';
 import { UpdatePrompt } from './UpdatePrompt';
 
+const FULL_SCREEN_ROUTES = new Set<string>([
+  ROUTES.onboarding,
+  ROUTES.login,
+  ROUTES.signup,
+  ROUTES.checkEmail,
+  ROUTES.forgotPassword,
+  ROUTES.resetPassword,
+]);
+
 /** Animation features load in their own chunk so they don't delay first paint. */
 const loadMotionFeatures = () => import('@/lib/motionFeatures').then((m) => m.default);
 
@@ -19,8 +28,8 @@ const loadMotionFeatures = () => import('@/lib/motionFeatures').then((m) => m.de
  */
 export function AppShell() {
   const reduceMotion = usePrefs((s) => s.reduceMotion);
-  // The first-run welcome is a focused, full-screen moment: no sidebar.
-  const showNav = useLocation().pathname !== ROUTES.onboarding;
+  // The first-run welcome and the account screens are focused split screens: no sidebar.
+  const showNav = !FULL_SCREEN_ROUTES.has(useLocation().pathname);
 
   // The app setting also turns off CSS animations (see styles/index.css).
   useEffect(() => {
