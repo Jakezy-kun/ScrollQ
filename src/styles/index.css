@@ -175,6 +175,18 @@
   }
 }
 
+/* Home page sample stack (features/start/SampleStack): a slow idle float. `will-change`
+   keeps each card on its own layer so the sub-pixel drift stays smooth. */
+.sample-float {
+  animation: sample-float 3.2s ease-in-out infinite backwards;
+  will-change: transform;
+}
+@keyframes sample-float {
+  50% {
+    transform: translateY(-3px);
+  }
+}
+
 /* Reduced motion (OS setting or the app's own setting): CSS animations stop,
    transitions become near-instant. */
 @media (prefers-reduced-motion: reduce) {

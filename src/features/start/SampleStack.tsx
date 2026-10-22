@@ -32,7 +32,12 @@ const CARDS = [
   },
 ];
 
-/** Decorative stack of sample posts: one good, one flagged, one locked. */
+/**
+ * Decorative stack of sample posts: one good, one flagged, one locked.
+ * Framer Motion plays the entrance; the idle float is a CSS animation (`sample-float`) so it
+ * runs on the compositor. Driving a 3px drift from JS snapped the text to whole pixels and
+ * looked choppy.
+ */
 export function SampleStack() {
   const reduced = useReducedMotion();
   return (
@@ -41,36 +46,38 @@ export function SampleStack() {
         <m.div
           key={c.title}
           initial={reduced ? { opacity: 0 } : { opacity: 0, y: 14 }}
-          animate={reduced ? { opacity: 1 } : { opacity: 1, y: [0, -3, 0] }}
+          animate={reduced ? { opacity: 1 } : { opacity: 1, y: 0 }}
           transition={
             reduced
               ? { duration: 0.2, delay: i * 0.06 }
-              : {
-                  opacity: { duration: 0.25, delay: i * 0.08, ease: easeOut },
-                  y: { duration: 3.2, delay: 0.4 + i * 0.35, repeat: Infinity, ease: 'easeInOut' },
-                }
+              : { duration: 0.4, delay: i * 0.08, ease: easeOut }
           }
-          className={cn(
-            'flex items-center gap-3 rounded-card p-3.5',
-            c.locked ? 'bg-surface/60' : 'bg-surface',
-            c.offset,
-          )}
+          className={c.offset}
         >
-          <span
-            className={cn('flex h-8 w-8 items-center justify-center rounded-full', c.iconClass)}
+          <div
+            className={cn(
+              'flex items-center gap-3 rounded-card p-3.5',
+              c.locked ? 'bg-surface/60' : 'bg-surface',
+              !reduced && 'sample-float',
+            )}
+            style={reduced ? undefined : { animationDelay: `${0.4 + i * 0.35}s` }}
           >
-            {c.icon}
-          </span>
-          {c.locked ? (
-            // Locked: placeholder bars, not text (nothing to read until it's opened).
-            <span className="flex flex-1 flex-col gap-1.5 blur-[2px]">
-              <span className="h-2.5 w-11/12 rounded-full bg-white/30" />
-              <span className="h-2.5 w-2/3 rounded-full bg-white/20" />
+            <span
+              className={cn('flex h-8 w-8 items-center justify-center rounded-full', c.iconClass)}
+            >
+              {c.icon}
             </span>
-          ) : (
-            <p className="flex-1 truncate text-sm font-semibold text-fg">{c.title}</p>
-          )}
-          <CostBadge cost={c.cost} />
+            {c.locked ? (
+              // Locked: placeholder bars, not text (nothing to read until it's opened).
+              <span className="flex flex-1 flex-col gap-1.5 blur-[2px]">
+                <span className="h-2.5 w-11/12 rounded-full bg-white/30" />
+                <span className="h-2.5 w-2/3 rounded-full bg-white/20" />
+              </span>
+            ) : (
+              <p className="flex-1 truncate text-sm font-semibold text-fg">{c.title}</p>
+            )}
+            <CostBadge cost={c.cost} />
+          </div>
         </m.div>
       ))}
     </div>
