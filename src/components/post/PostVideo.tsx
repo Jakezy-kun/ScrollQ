@@ -1,7 +1,9 @@
+import { useIsPresent } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
 import { cn } from '@/lib/cn';
 import type { PostVideo as Clip } from '@/lib/postVideo';
+import { durations } from '@/styles/tokens';
 
 interface PostVideoProps {
   video: Clip;
@@ -24,6 +26,19 @@ export function PostVideo({
   const still = reduced || !video.url;
 
   const videoRef = useRef<HTMLVideoElement>(null);
+  const isPresent = useIsPresent();
+  // Start loading only once the post has slid in, so the tap that brought it feels instant.
+  const [started, setStarted] = useState(false);
+
+  useEffect(() => {
+    const t = window.setTimeout(() => setStarted(true), durations.slow);
+    return () => window.clearTimeout(t);
+  }, []);
+
+  // A post sliding out stops decoding right away instead of competing with the next one.
+  useEffect(() => {
+    if (!isPresent) videoRef.current?.pause();
+  }, [isPresent]);
 
   useEffect(() => {
     if (still && !video.poster) onError();
@@ -58,7 +73,7 @@ export function PostVideo({
       ) : (
         <video
           ref={videoRef}
-          src={video.url}
+          src={started ? video.url : undefined}
           poster={video.poster || undefined}
           className={media}
           autoPlay

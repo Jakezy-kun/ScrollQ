@@ -1,7 +1,7 @@
 import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import react from '@vitejs/plugin-react';
-import type { Plugin } from 'vite';
+import type { Plugin, PreviewServer, ViteDevServer } from 'vite';
 import { loadEnv } from 'vite';
 import { VitePWA } from 'vite-plugin-pwa';
 import { defineConfig } from 'vitest/config';
@@ -13,22 +13,27 @@ const pkg = JSON.parse(readFileSync(new URL('./package.json', import.meta.url), 
 
 const THEME = '#1B1530';
 
-/** Serves /api/videos during `npm run dev`, like the Vercel Function does in production. */
+/**
+ * Serves /api/videos during `npm run dev` and `npm run preview`, like the Vercel Function
+ * does in production.
+ */
 function devVideoApi(): Plugin {
+  const serve = (server: ViteDevServer | PreviewServer) => {
+    // Not VITE_-prefixed, so the key stays on the server and never reaches the app bundle.
+    const { PIXABAY_API_KEY } = loadEnv(server.config.mode, process.cwd(), '');
+    server.middlewares.use('/api/videos', (req, res) => {
+      const params = new URL(req.url ?? '/', 'http://localhost').searchParams;
+      void handleVideoRequest(params, PIXABAY_API_KEY).then(async (response) => {
+        res.statusCode = response.status;
+        response.headers.forEach((value, key) => res.setHeader(key, value));
+        res.end(await response.text());
+      });
+    });
+  };
   return {
     name: 'scrollq-dev-video-api',
-    configureServer(server) {
-      // Not VITE_-prefixed, so the key stays on the server and never reaches the app bundle.
-      const { PIXABAY_API_KEY } = loadEnv(server.config.mode, process.cwd(), '');
-      server.middlewares.use('/api/videos', (req, res) => {
-        const params = new URL(req.url ?? '/', 'http://localhost').searchParams;
-        void handleVideoRequest(params, PIXABAY_API_KEY).then(async (response) => {
-          res.statusCode = response.status;
-          response.headers.forEach((value, key) => res.setHeader(key, value));
-          res.end(await response.text());
-        });
-      });
-    },
+    configureServer: serve,
+    configurePreviewServer: serve,
   };
 }
 
