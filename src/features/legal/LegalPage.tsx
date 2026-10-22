@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
 import { ScreenHeader } from '@/components/ScreenHeader';
+import { PAGE_WIDTH } from '@/components/pageWidth';
 
 /** Simple reading layout for the Privacy notice and About pages. */
 export function LegalPage({
@@ -12,7 +13,7 @@ export function LegalPage({
   children: ReactNode;
 }) {
   return (
-    <main className="flex min-h-dvh flex-1 flex-col px-5 pb-12">
+    <main className={`flex min-h-dvh flex-1 flex-col px-5 pb-12 ${PAGE_WIDTH.reading}`}>
       <ScreenHeader className="-mx-2" />
       <h1 className="mt-2 font-display text-3xl font-bold leading-tight">{title}</h1>
       <p className="mt-3 text-lg leading-relaxed text-muted">{intro}</p>

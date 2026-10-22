@@ -3,6 +3,7 @@ import { ROUTES } from '@/app/routes';
 import { Button } from '@/components/Button';
 import { ScreenHeader } from '@/components/ScreenHeader';
 import { SlideDeck, SlideDots } from '@/components/Slides';
+import { PAGE_WIDTH } from '@/components/pageWidth';
 import { useSlides } from '@/hooks/useSlides';
 import { HOW_TO_CARDS } from './howToCards';
 import { HowToVisual } from './HowToVisual';
@@ -15,7 +16,7 @@ export function HowToPage() {
   if (!card) return null;
 
   return (
-    <main className="flex min-h-dvh flex-1 flex-col px-5 pb-8">
+    <main className={`flex min-h-dvh flex-1 flex-col px-5 pb-8 ${PAGE_WIDTH.reading}`}>
       <ScreenHeader
         title="How to Play"
         backTo={ROUTES.start}

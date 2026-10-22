@@ -4,6 +4,7 @@ import { ROUTES } from '@/app/routes';
 import type { Post } from '@/engine';
 import { GAME_CONFIG } from '@/engine';
 import { useRound } from '@/hooks/useRound';
+import { usePrefs } from '@/lib/prefs';
 import { makePost } from '@/tests/fixtures';
 import { renderRoute } from '@/tests/renderRoute';
 import { RoundPage } from './RoundPage';
@@ -106,6 +107,40 @@ describe('RoundPage', () => {
     expect(await screen.findByText('Flagged')).toBeInTheDocument();
     // Nothing on screen says whether the call was right until the summary.
     expect(screen.queryByText(/good call|bad call|was a trap/i)).not.toBeInTheDocument();
+  });
+
+  it('supports R / S / F on a keyboard, but not while a sheet is open', async () => {
+    const user = userEvent.setup();
+    startRound();
+    renderRoute(ROUTES.round, <RoundPage />, { others });
+
+    await user.keyboard('r');
+    const sheet = screen.getByRole('dialog', { name: /open this post for/i });
+    // Keys typed while the sheet is open don't act on the post behind it.
+    await user.keyboard('s');
+    expect(useRound.getState().round.index).toBe(0);
+    await user.click(within(sheet).getByRole('button', { name: 'Cancel' }));
+
+    await user.keyboard('s');
+    expect(await screen.findByText('Skipped')).toBeInTheDocument();
+    expect(useRound.getState().round.index).toBe(1);
+
+    act(() => useRound.getState().postShown(useRound.getState().round.posts[1]!.id));
+    await user.keyboard('F');
+    expect(await screen.findByText('Flagged')).toBeInTheDocument();
+    expect(useRound.getState().round.decisions.map((d) => d.choice)).toEqual(['skip', 'flag']);
+  });
+
+  it('ignores the shortcuts when they are turned off in Settings', async () => {
+    const user = userEvent.setup();
+    usePrefs.setState({ keyboardShortcuts: false });
+    startRound();
+    renderRoute(ROUTES.round, <RoundPage />, { others });
+
+    await user.keyboard('srf');
+    expect(useRound.getState().round.index).toBe(0);
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+    usePrefs.setState({ keyboardShortcuts: true });
   });
 
   it('drains idle coins after the grace period and shows the warning', () => {

@@ -22,9 +22,11 @@ import { OutOfCoins } from './OutOfCoins';
 import { PostDetail } from './PostDetail';
 import { PostSlide } from './PostSlide';
 import { ReadConfirmSheet } from './ReadConfirmSheet';
+import { RoundSidePanel } from './RoundSidePanel';
 import { RoundTopBar } from './RoundTopBar';
 import { UpNext } from './UpNext';
 import { useRoundFeedback } from './useRoundFeedback';
+import { useRoundShortcuts } from './useRoundShortcuts';
 
 /** Hash pushed while a post is open, so the browser/phone Back button closes it. */
 const DETAIL_HASH = '#post';
@@ -89,14 +91,6 @@ export function RoundPage() {
     mainRef.current?.scrollTo?.({ top: 0 });
   }, [post?.id]);
 
-  if (round.status === 'ready' || round.posts.length === 0) {
-    return <Navigate to={ROUTES.feedSelect} replace />;
-  }
-
-  const Skin = POST_SKINS[round.feedStyle];
-  const vertical = round.feedStyle === 'vertical';
-  const upcoming = round.posts.slice(round.index + 1, round.index + 3);
-
   const onSkip = (p: Post) => {
     skip(p.id);
     toast.show('Skipped', { duration: 1200 });
@@ -106,43 +100,73 @@ export function RoundPage() {
     toast.show('Flagged', { duration: 1200 });
   };
 
-  return (
-    <div className="relative flex h-dvh flex-1 flex-col overflow-hidden">
-      <RoundTopBar
-        coins={round.coins}
-        current={progress.current}
-        total={progress.total}
-        idleProgress={idle.progress}
-        draining={idle.draining}
-        announcement={open ? null : announcement}
-        live={round.mode === 'live'}
-      />
+  // R / S / F on a keyboard, only while the post itself is on screen.
+  useRoundShortcuts(
+    playing && post && !pending && !open
+      ? { read: () => requestRead(post.id), skip: () => onSkip(post), flag: () => onFlag(post) }
+      : null,
+  );
 
-      <main
-        ref={mainRef}
-        aria-label="Feed"
+  if (round.status === 'ready' || round.posts.length === 0) {
+    return <Navigate to={ROUTES.feedSelect} replace />;
+  }
+
+  const Skin = POST_SKINS[round.feedStyle];
+  const vertical = round.feedStyle === 'vertical';
+  const upcoming = round.posts.slice(round.index + 1, round.index + 3);
+
+  return (
+    // Laptops and PCs: the feed in the middle, like a social site, with a side panel.
+    <div className="relative flex h-dvh flex-1 overflow-hidden lg:justify-center lg:gap-8 lg:px-8">
+      <div
         className={cn(
-          'relative flex min-h-0 flex-1 flex-col px-3 pb-3',
-          vertical ? 'overflow-hidden' : 'overflow-y-auto',
+          'relative flex min-h-0 w-full flex-1 flex-col',
+          // A reel stays phone-shaped; other feeds get a readable column.
+          vertical ? 'lg:max-w-[460px]' : 'lg:max-w-[600px]',
         )}
       >
-        {post && (
-          <AnimatePresence initial>
-            <PostSlide key={post.id} vertical={vertical} onShown={() => postShown(post.id)}>
-              <Skin
-                post={post}
-                canAfford={selectCanAfford(round, post)}
-                onRead={() => requestRead(post.id)}
-                onSkip={() => onSkip(post)}
-                onFlag={() => onFlag(post)}
-              />
-              {!vertical && <UpNext posts={upcoming} />}
-            </PostSlide>
-          </AnimatePresence>
-        )}
-      </main>
+        <RoundTopBar
+          coins={round.coins}
+          current={progress.current}
+          total={progress.total}
+          idleProgress={idle.progress}
+          draining={idle.draining}
+          announcement={open ? null : announcement}
+          live={round.mode === 'live'}
+        />
 
-      <IdleWarning show={playing && idle.draining} />
+        <main
+          ref={mainRef}
+          aria-label="Feed"
+          className={cn(
+            'relative flex min-h-0 flex-1 flex-col px-3 pb-3',
+            vertical ? 'overflow-hidden' : 'overflow-y-auto',
+          )}
+        >
+          {post && (
+            <AnimatePresence initial>
+              <PostSlide key={post.id} vertical={vertical} onShown={() => postShown(post.id)}>
+                <Skin
+                  post={post}
+                  canAfford={selectCanAfford(round, post)}
+                  onRead={() => requestRead(post.id)}
+                  onSkip={() => onSkip(post)}
+                  onFlag={() => onFlag(post)}
+                />
+                {!vertical && (
+                  <div className="lg:hidden">
+                    <UpNext posts={upcoming} />
+                  </div>
+                )}
+              </PostSlide>
+            </AnimatePresence>
+          )}
+        </main>
+
+        <IdleWarning show={playing && idle.draining} />
+      </div>
+
+      <RoundSidePanel upcoming={upcoming} />
 
       <ReadConfirmSheet
         post={playing ? pending : null}

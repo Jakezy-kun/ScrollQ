@@ -5,6 +5,7 @@ import { AvatarArt } from '@/components/avatar/AvatarArt';
 import { Button } from '@/components/Button';
 import { Wordmark } from '@/components/Wordmark';
 import { GAME_CONFIG, selectProgress } from '@/engine';
+import { useIsDesktop } from '@/hooks/useIsDesktop';
 import { useProfile } from '@/hooks/useProfile';
 import { useRound } from '@/hooks/useRound';
 import { bestSq, useRounds } from '@/hooks/useRounds';
@@ -21,6 +22,7 @@ export function StartPage() {
   const round = useRound((s) => s.round);
   const { rounds } = useRounds();
   const best = bestSq(rounds);
+  const desktop = useIsDesktop();
 
   if (!onboardingSeen) return <Navigate to={ROUTES.onboarding} replace />;
 
@@ -29,8 +31,10 @@ export function StartPage() {
   const minutes = Math.round((GAME_CONFIG.postsPerRound * 15) / 60);
 
   return (
-    <main className="flex min-h-dvh flex-1 flex-col px-6 pb-8">
-      <header className="-mx-2 flex min-h-14 items-center justify-end gap-1 pt-[env(safe-area-inset-top)]">
+    // Laptops and PCs: the hero on the left, the sample feed on the right. The sidebar
+    // replaces the header icons.
+    <main className="flex min-h-dvh flex-1 flex-col px-6 pb-8 lg:mx-auto lg:grid lg:w-full lg:max-w-5xl lg:grid-cols-[minmax(0,1fr)_minmax(0,26rem)] lg:content-center lg:items-center lg:gap-x-16 lg:px-12 lg:py-12">
+      <header className="-mx-2 flex min-h-14 items-center justify-end gap-1 pt-[env(safe-area-inset-top)] lg:hidden">
         <Link
           to={ROUTES.history}
           aria-label="History"
@@ -66,12 +70,14 @@ export function StartPage() {
         )}
       </header>
 
-      <div className="flex flex-1 flex-col justify-center py-6">
-        <div className="mb-10">
-          <SampleStack />
-        </div>
+      <div className="flex flex-1 flex-col justify-center py-6 lg:col-start-1 lg:row-start-1 lg:flex-none lg:py-0">
+        {!desktop && (
+          <div className="mb-10">
+            <SampleStack />
+          </div>
+        )}
         {name && <p className="mb-2 font-semibold text-muted">Hi, {name}!</p>}
-        <Wordmark as="h1" className="text-[64px]" />
+        <Wordmark as="h1" className="text-[64px] lg:text-[88px]" />
         <p className="mt-3 font-display text-2xl font-semibold text-fg">
           What's your Scroll Quotient?
         </p>
@@ -88,7 +94,13 @@ export function StartPage() {
         )}
       </div>
 
-      <div className="space-y-3">
+      {desktop && (
+        <div className="lg:col-start-2 lg:row-span-2 lg:row-start-1">
+          <SampleStack />
+        </div>
+      )}
+
+      <div className="space-y-3 lg:col-start-1 lg:row-start-2 lg:mt-8 lg:max-w-sm">
         {inProgress && (
           <Button
             fullWidth

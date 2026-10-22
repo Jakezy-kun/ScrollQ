@@ -1,19 +1,26 @@
 import { LazyMotion, MotionConfig } from 'framer-motion';
 import { Suspense, useEffect } from 'react';
-import { Outlet, ScrollRestoration } from 'react-router';
+import { Outlet, ScrollRestoration, useLocation } from 'react-router';
 import { ToastProvider } from '@/components/Toast';
 import { GuestMigrationPrompt } from '@/features/account/GuestMigrationPrompt';
 import { AuthProvider } from '@/lib/auth/AuthProvider';
 import { usePrefs } from '@/lib/prefs';
 import { RepositoryProvider } from '@/lib/repository/RepositoryProvider';
+import { DesktopNav } from './DesktopNav';
+import { ROUTES } from './routes';
 import { UpdatePrompt } from './UpdatePrompt';
 
 /** Animation features load in their own chunk so they don't delay first paint. */
 const loadMotionFeatures = () => import('@/lib/motionFeatures').then((m) => m.default);
 
-/** Centers the app in a 430px column on larger screens. Full-bleed on phones. */
+/**
+ * Phones: full-bleed. Tablets: a centered 430px app column. Laptops and PCs (lg+): a
+ * sidebar plus the page filling the rest of the window (each page sets its own width).
+ */
 export function AppShell() {
   const reduceMotion = usePrefs((s) => s.reduceMotion);
+  // The first-run welcome is a focused, full-screen moment: no sidebar.
+  const showNav = useLocation().pathname !== ROUTES.onboarding;
 
   // The app setting also turns off CSS animations (see styles/index.css).
   useEffect(() => {
@@ -26,8 +33,9 @@ export function AppShell() {
         <ToastProvider>
           <AuthProvider>
             <RepositoryProvider>
-              <div className="min-h-dvh bg-deep">
-                <div className="relative mx-auto flex min-h-dvh w-full max-w-app flex-col bg-base sm:shadow-2xl sm:ring-1 sm:ring-white/5">
+              <div className="min-h-dvh bg-deep lg:flex">
+                {showNav && <DesktopNav />}
+                <div className="relative mx-auto flex min-h-dvh w-full max-w-app flex-col bg-base sm:shadow-2xl sm:ring-1 sm:ring-white/5 lg:mx-0 lg:min-w-0 lg:max-w-none lg:flex-1 lg:shadow-none lg:ring-0">
                   <Suspense fallback={<RouteFallback />}>
                     <Outlet />
                   </Suspense>

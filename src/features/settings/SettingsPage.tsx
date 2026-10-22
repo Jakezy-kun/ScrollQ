@@ -4,6 +4,7 @@ import { Link } from 'react-router';
 import { ROUTES } from '@/app/routes';
 import { ScreenHeader } from '@/components/ScreenHeader';
 import { Switch } from '@/components/Switch';
+import { PAGE_WIDTH } from '@/components/pageWidth';
 import { useToast } from '@/components/toastContext';
 import { useAuth } from '@/lib/auth/authContext';
 import { canVibrate } from '@/lib/feedback';
@@ -11,12 +12,12 @@ import { usePrefs } from '@/lib/prefs';
 
 export function SettingsPage() {
   const toast = useToast();
-  const { sound, vibration, reduceMotion, setPrefs, resetTutorial } = usePrefs();
+  const { sound, vibration, reduceMotion, keyboardShortcuts, setPrefs, resetTutorial } = usePrefs();
   const vibrationSupported = canVibrate();
   const { status } = useAuth();
 
   return (
-    <main className="flex min-h-dvh flex-1 flex-col px-5 pb-10">
+    <main className={`flex min-h-dvh flex-1 flex-col px-5 pb-10 ${PAGE_WIDTH.reading}`}>
       <ScreenHeader title="Settings" backTo={ROUTES.start} className="-mx-2" />
 
       <Group title="Game">
@@ -42,6 +43,12 @@ export function SettingsPage() {
           description="Use simple fades instead of slides. ScrollQ also follows your device setting."
           checked={reduceMotion}
           onChange={(v) => setPrefs({ reduceMotion: v })}
+        />
+        <Switch
+          label="Keyboard shortcuts"
+          description="On a computer: R to read, S to skip, F to flag the current post."
+          checked={keyboardShortcuts}
+          onChange={(v) => setPrefs({ keyboardShortcuts: v })}
         />
       </Group>
 

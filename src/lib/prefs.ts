@@ -18,6 +18,8 @@ export interface Prefs {
   vibration: boolean;
   /** App-level reduce motion, on top of the OS setting. */
   reduceMotion: boolean;
+  /** R / S / F during a round. Single-key shortcuts must be switchable off (WCAG 2.1.4). */
+  keyboardShortcuts: boolean;
 }
 
 interface PrefsStore extends Prefs {
@@ -35,6 +37,7 @@ export const DEFAULT_PREFS: Prefs = {
   sound: false,
   vibration: true,
   reduceMotion: false,
+  keyboardShortcuts: true,
 };
 
 /** Drop anything malformed from storage and fall back to defaults. */
@@ -55,6 +58,7 @@ function sanitize(raw: unknown): Partial<Prefs> {
   if (typeof r.sound === 'boolean') out.sound = r.sound;
   if (typeof r.vibration === 'boolean') out.vibration = r.vibration;
   if (typeof r.reduceMotion === 'boolean') out.reduceMotion = r.reduceMotion;
+  if (typeof r.keyboardShortcuts === 'boolean') out.keyboardShortcuts = r.keyboardShortcuts;
   return out;
 }
 

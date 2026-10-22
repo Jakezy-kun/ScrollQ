@@ -6,6 +6,7 @@ import { BottomSheet } from '@/components/BottomSheet';
 import { Button } from '@/components/Button';
 import { ScreenHeader } from '@/components/ScreenHeader';
 import { SqChart } from '@/components/SqChart';
+import { PAGE_WIDTH } from '@/components/pageWidth';
 import { useToast } from '@/components/toastContext';
 import { sqLabel } from '@/engine';
 import { bestSq, useRounds } from '@/hooks/useRounds';
@@ -44,7 +45,7 @@ export function HistoryPage() {
   const latest = rounds[0];
 
   return (
-    <main className="flex min-h-dvh flex-1 flex-col px-5 pb-8">
+    <main className={`flex min-h-dvh flex-1 flex-col px-5 pb-8 ${PAGE_WIDTH.wide}`}>
       <ScreenHeader title="History" backTo={ROUTES.start} className="-mx-2" />
 
       {loading ? (
@@ -102,7 +103,7 @@ export function HistoryPage() {
             <h2 id="rounds-title" className="font-display text-lg font-bold">
               {rounds.length} {rounds.length === 1 ? 'round' : 'rounds'}
             </h2>
-            <ul className="mt-2 space-y-2">
+            <ul className="mt-2 space-y-2 lg:grid lg:grid-cols-2 lg:gap-2 lg:space-y-0">
               {rounds.map((r) => {
                 const label = sqLabel(r.sq);
                 return (
@@ -137,7 +138,7 @@ export function HistoryPage() {
           <Button
             variant="danger"
             fullWidth
-            className="mt-8"
+            className="mt-8 lg:w-auto lg:self-start"
             icon={<Trash2 className="h-5 w-5" aria-hidden="true" />}
             onClick={() => setConfirmOpen(true)}
           >

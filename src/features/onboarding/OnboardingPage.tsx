@@ -6,6 +6,7 @@ import { ROUTES } from '@/app/routes';
 import { Button } from '@/components/Button';
 import { CoinIcon } from '@/components/CoinIcon';
 import { IdleMeter } from '@/components/IdleMeter';
+import { PAGE_WIDTH } from '@/components/pageWidth';
 import { CostBadge } from '@/components/post';
 import { ScoreRing } from '@/components/ScoreRing';
 import { SlideDeck, SlideDots } from '@/components/Slides';
@@ -66,7 +67,9 @@ export function OnboardingPage() {
   const slide = SLIDES[index];
 
   return (
-    <main className="flex min-h-dvh flex-1 flex-col px-6 pb-8 pt-[max(1rem,env(safe-area-inset-top))]">
+    <main
+      className={`flex min-h-dvh flex-1 flex-col px-6 pb-8 pt-[max(1rem,env(safe-area-inset-top))] ${PAGE_WIDTH.narrow}`}
+    >
       <header className="flex min-h-14 items-center justify-between">
         <Wordmark className="text-2xl" />
         <button

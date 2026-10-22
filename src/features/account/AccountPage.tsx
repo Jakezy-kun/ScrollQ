@@ -8,6 +8,7 @@ import { ROUTES } from '@/app/routes';
 import { BottomSheet } from '@/components/BottomSheet';
 import { Button } from '@/components/Button';
 import { FormMessage, PasswordField, TextField } from '@/components/form/Fields';
+import { PAGE_WIDTH } from '@/components/pageWidth';
 import { useToast } from '@/components/toastContext';
 import { ScreenHeader } from '@/components/ScreenHeader';
 import type { NewPasswordValues } from '@/features/auth/schemas';
@@ -45,7 +46,7 @@ export function AccountPage() {
   };
 
   return (
-    <main className="flex min-h-dvh flex-1 flex-col px-5 pb-10">
+    <main className={`flex min-h-dvh flex-1 flex-col px-5 pb-10 ${PAGE_WIDTH.reading}`}>
       <ScreenHeader title="Account" backTo={ROUTES.profile} className="-mx-2" />
 
       <Section title="Sign-in">

@@ -8,6 +8,7 @@ import { CoinCounter } from '@/components/CoinCounter';
 import { CoinIcon } from '@/components/CoinIcon';
 import { Avatar, MediaGlyph, mediaGradient } from '@/components/post';
 import type { Post, Rating } from '@/engine';
+import { useIsDesktop } from '@/hooks/useIsDesktop';
 import { useModal } from '@/hooks/useModal';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
 import { cn } from '@/lib/cn';
@@ -60,25 +61,43 @@ function DetailPanel({
   rating,
 }: PostDetailProps & { post: Post; panelRef: RefObject<HTMLDivElement> }) {
   const reduced = useReducedMotion();
+  // Phones: slides in full-screen. Laptops and PCs: a centered reading panel over the feed.
+  const desktop = useIsDesktop();
   const isPresent = useIsPresent();
   const titleId = useId();
+  const hidden = reduced
+    ? { opacity: 0 }
+    : desktop
+      ? { opacity: 0, scale: 0.97, y: 12 }
+      : { x: '100%' };
 
   return (
     <div
-      className="fixed inset-0 z-50 flex justify-center overflow-hidden"
+      className="fixed inset-0 z-50 flex justify-center overflow-hidden lg:items-center lg:p-6"
       style={{ pointerEvents: isPresent ? undefined : 'none' }}
     >
+      <m.button
+        type="button"
+        tabIndex={-1}
+        aria-label="Back to feed"
+        onClick={onBack}
+        className="absolute inset-0 hidden cursor-default bg-black/60 lg:block"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={fast}
+      />
       <m.div
         ref={panelRef}
         role="dialog"
         aria-modal="true"
         aria-labelledby={titleId}
         tabIndex={-1}
-        className="flex h-full w-full max-w-app flex-col bg-base outline-none"
-        initial={reduced ? { opacity: 0 } : { x: '100%' }}
-        animate={reduced ? { opacity: 1 } : { x: 0 }}
-        exit={reduced ? { opacity: 0 } : { x: '100%' }}
-        transition={reduced ? fast : sheet}
+        className="relative flex h-full w-full max-w-app flex-col bg-base outline-none lg:h-[min(100%,56rem)] lg:max-w-2xl lg:overflow-hidden lg:rounded-sheet lg:shadow-2xl lg:ring-1 lg:ring-white/10"
+        initial={hidden}
+        animate={{ opacity: 1, scale: 1, x: 0, y: 0 }}
+        exit={hidden}
+        transition={reduced || desktop ? fast : sheet}
       >
         <header className="flex items-center justify-between border-b border-white/5 px-3 pb-3 pt-[max(1rem,env(safe-area-inset-top))]">
           <button

@@ -3,6 +3,7 @@ import { Navigate, useNavigate } from 'react-router';
 import { ROUTES } from '@/app/routes';
 import { Button } from '@/components/Button';
 import { GuestSaveCard } from '@/components/GuestSaveCard';
+import { PAGE_WIDTH } from '@/components/pageWidth';
 import { useToast } from '@/components/toastContext';
 import { useRound } from '@/hooks/useRound';
 import { useRepository } from '@/lib/repository/repositoryContext';
@@ -42,7 +43,7 @@ export function SummaryPage() {
   const roundWord = mode === 'live' ? 'Live round' : 'Round';
 
   return (
-    <div className="flex min-h-dvh flex-1 flex-col">
+    <div className={`flex min-h-dvh flex-1 flex-col ${PAGE_WIDTH.reading}`}>
       <main className="flex-1 px-5 pb-6 pt-[max(1.5rem,env(safe-area-inset-top))]">
         <SummaryView
           record={finished.record}

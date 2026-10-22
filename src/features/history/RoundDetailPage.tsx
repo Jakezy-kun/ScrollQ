@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router';
 import { ROUTES } from '@/app/routes';
 import { Button } from '@/components/Button';
 import { ScreenHeader } from '@/components/ScreenHeader';
+import { PAGE_WIDTH } from '@/components/pageWidth';
 import { REFLECT_PROMPTS } from '@/features/reflect/reflectPrompts';
 import { SummaryView } from '@/features/summary/SummaryView';
 import { useRepository } from '@/lib/repository/repositoryContext';
@@ -34,7 +35,7 @@ export function RoundDetailPage() {
   }, [repo, id]);
 
   return (
-    <div className="flex min-h-dvh flex-1 flex-col">
+    <div className={`flex min-h-dvh flex-1 flex-col ${PAGE_WIDTH.reading}`}>
       <ScreenHeader title="Past round" backTo={ROUTES.history} />
       <main className="flex-1 px-5 pb-6">
         {state.status === 'loading' && (

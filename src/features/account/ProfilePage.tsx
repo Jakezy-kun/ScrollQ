@@ -7,6 +7,7 @@ import { findAvatar } from '@/components/avatar/avatars';
 import { Button } from '@/components/Button';
 import { ScreenHeader } from '@/components/ScreenHeader';
 import { SqChart } from '@/components/SqChart';
+import { PAGE_WIDTH } from '@/components/pageWidth';
 import { useToast } from '@/components/toastContext';
 import type { FeedStyle } from '@/engine';
 import { FEED_STYLE_NAME } from '@/features/history/format';
@@ -45,7 +46,7 @@ export function ProfilePage() {
   ];
 
   return (
-    <main className="flex min-h-dvh flex-1 flex-col px-5 pb-10">
+    <main className={`flex min-h-dvh flex-1 flex-col px-5 pb-10 ${PAGE_WIDTH.reading}`}>
       <ScreenHeader
         title="Profile"
         backTo={ROUTES.start}

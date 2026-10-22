@@ -2,6 +2,7 @@ import { AnimatePresence, m, useIsPresent } from 'framer-motion';
 import type { ReactNode, RefObject } from 'react';
 import { useRef } from 'react';
 import { createPortal } from 'react-dom';
+import { useIsDesktop } from '@/hooks/useIsDesktop';
 import { useModal } from '@/hooks/useModal';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
 import { cn } from '@/lib/cn';
@@ -70,12 +71,19 @@ function SheetLayer({
   children,
 }: SheetLayerProps) {
   const reduced = useReducedMotion();
+  // On a laptop or PC the sheet is a centered dialog instead of sliding up from the bottom.
+  const desktop = useIsDesktop();
   // While exiting, let taps fall through to the page underneath.
   const isPresent = useIsPresent();
+  const hidden = reduced
+    ? { opacity: 0 }
+    : desktop
+      ? { opacity: 0, scale: 0.96, y: 8 }
+      : { y: '100%' };
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-end justify-center"
+      className="fixed inset-0 z-50 flex items-end justify-center lg:items-center lg:p-6"
       style={{ pointerEvents: isPresent ? undefined : 'none' }}
     >
       <m.button
@@ -98,14 +106,18 @@ function SheetLayer({
         tabIndex={-1}
         className={cn(
           'relative w-full max-w-app rounded-t-sheet bg-surface px-5 pb-[max(1.5rem,env(safe-area-inset-bottom))] pt-3 outline-none',
+          'lg:max-h-[calc(100dvh-3rem)] lg:max-w-md lg:overflow-y-auto lg:rounded-sheet lg:p-6 lg:shadow-2xl lg:ring-1 lg:ring-white/10',
           className,
         )}
-        initial={reduced ? { opacity: 0 } : { y: '100%' }}
-        animate={reduced ? { opacity: 1 } : { y: 0 }}
-        exit={reduced ? { opacity: 0 } : { y: '100%' }}
-        transition={reduced ? fast : sheet}
+        initial={hidden}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        exit={hidden}
+        transition={reduced || desktop ? fast : sheet}
       >
-        <div className="mx-auto mb-5 h-1.5 w-10 rounded-full bg-white/20" aria-hidden="true" />
+        <div
+          className="mx-auto mb-5 h-1.5 w-10 rounded-full bg-white/20 lg:hidden"
+          aria-hidden="true"
+        />
         {children}
       </m.div>
     </div>

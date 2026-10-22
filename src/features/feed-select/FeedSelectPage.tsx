@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router';
 import { ROUTES } from '@/app/routes';
 import { Button } from '@/components/Button';
 import { ScreenHeader } from '@/components/ScreenHeader';
+import { PAGE_WIDTH } from '@/components/pageWidth';
 import { useToast } from '@/components/toastContext';
 import type { FeedStyle, RoundMode } from '@/engine';
 import { useOnline } from '@/hooks/useOnline';
@@ -54,12 +55,12 @@ export function FeedSelectPage() {
   };
 
   return (
-    <main className="flex min-h-dvh flex-1 flex-col px-5 pb-8">
+    <main className={`flex min-h-dvh flex-1 flex-col px-5 pb-8 ${PAGE_WIDTH.reading}`}>
       <ScreenHeader backTo={ROUTES.start} className="-mx-2" />
       <h1 className="mt-2 font-display text-3xl font-bold leading-tight">Pick your feed</h1>
       <p className="mt-2 text-base text-muted">Same posts, same rules. Just a different look.</p>
 
-      <fieldset className="mt-6 flex-1 space-y-3">
+      <fieldset className="mt-6 flex-1 space-y-3 lg:grid lg:flex-none lg:grid-cols-2 lg:gap-3 lg:space-y-0">
         <legend className="sr-only">Feed style</legend>
         {FEED_STYLE_OPTIONS.map((s) => {
           const active = s.id === selected;
@@ -146,7 +147,12 @@ export function FeedSelectPage() {
           Starting a new round ends the one in progress.
         </p>
       )}
-      <Button fullWidth className="mt-4" loading={starting} onClick={() => void startRound()}>
+      <Button
+        fullWidth
+        className="mt-4 lg:mt-8"
+        loading={starting}
+        onClick={() => void startRound()}
+      >
         Start round
       </Button>
     </main>

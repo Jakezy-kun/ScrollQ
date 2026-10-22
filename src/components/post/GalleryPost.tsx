@@ -32,7 +32,7 @@ export function GalleryPost({ post, canAfford, onRead, onSkip, onFlag }: PostSki
           {handle}
           <span aria-hidden="true" className="font-semibold">
             <span className="text-muted"> · </span>
-            <span className="text-violet">Follow</span>
+            <span className="text-[#A99BFF]">Follow</span>
           </span>
         </p>
         <CostBadge cost={post.cost} />
@@ -40,7 +40,8 @@ export function GalleryPost({ post, canAfford, onRead, onSkip, onFlag }: PostSki
       </header>
 
       <div
-        className="relative flex aspect-square items-center justify-center overflow-hidden"
+        // On laptops the photo shrinks with the window height so Read / Skip / Flag stay on screen.
+        className="relative mx-auto flex aspect-square w-full items-center justify-center overflow-hidden lg:w-[min(100%,calc(100dvh-25rem))] lg:rounded-card"
         style={mediaGradient(post.skinMedia.color)}
       >
         <MediaGlyph glyph={post.skinMedia.glyph} className="text-[140px] opacity-60 blur-[10px]" />

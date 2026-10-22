@@ -36,7 +36,7 @@ export function ForumPost({ post, canAfford, onRead, onSkip, onFlag }: PostSkinP
         </div>
         <span
           aria-hidden="true"
-          className="rounded-full bg-violet px-3 py-1 text-xs font-bold text-fg"
+          className="rounded-full px-3 py-1 text-xs font-bold text-[#A99BFF] ring-1 ring-inset ring-violet"
         >
           Join
         </span>
