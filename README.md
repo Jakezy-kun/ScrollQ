@@ -4,6 +4,8 @@
 
 It's a mobile-first React app, installable as a PWA, that works fully offline in curated mode. Guests can always play; a free account (Supabase) saves rounds and SQ history to the cloud.
 
+> **Formerly Scroll Budget.** The app's original name was **Scroll Budget**. It kept that name until it was renamed **ScrollQ**.
+
 ---
 
 ## Quick start

@@ -38,6 +38,13 @@ export function AboutPage() {
         </p>
       </LegalSection>
 
+      <LegalSection title="Our name">
+        <p>
+          ScrollQ was originally called Scroll Budget. That was its name until it was renamed
+          ScrollQ.
+        </p>
+      </LegalSection>
+
       <LegalSection title="Credits">
         <ul>
           <li>Made by the ScrollQ student team as a learning project.</li>
