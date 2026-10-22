@@ -1,6 +1,6 @@
 # ScrollQ
 
-**ScrollQ ("Scroll Quotient")** is a game-based learning app that helps students aged 15–22 spend their attention wisely on social feeds. Each round you get 100 attention coins and a feed that never ends. Every post shows a teaser and a price, and you decide whether to read it, skip it, or flag it as a trap. Opening a post always needs a confirmation, and standing still drains coins, just like mindless scrolling drains attention. At the end you get your SQ score, see which posts were worth it and which were traps (and why), and take a moment to reflect. The learning comes from the rules themselves (scarcity, cost, consequences, the reveal and reflection), not from badges.
+**ScrollQ ("Scroll Budget")** is a game-based learning app that helps students aged 15–22 spend their attention wisely on social feeds. Each round you get 100 attention coins and a feed that never ends. Every post shows a teaser and a price, and you decide whether to read it, skip it, or flag it as a trap. Opening a post always needs a confirmation, and standing still drains coins, just like mindless scrolling drains attention. At the end you get your SQ score, see which posts were worth it and which were traps (and why), and take a moment to reflect. The learning comes from the rules themselves (scarcity, cost, consequences, the reveal and reflection), not from badges.
 
 It's a mobile-first React app, installable as a PWA, that works fully offline in curated mode. Guests can always play; a free account (Supabase) saves rounds and SQ history to the cloud.
 
