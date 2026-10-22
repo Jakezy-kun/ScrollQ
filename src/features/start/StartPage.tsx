@@ -79,7 +79,7 @@ export function StartPage() {
         {name && <p className="mb-2 font-semibold text-muted">Hi, {name}!</p>}
         <Wordmark as="h1" className="text-[64px] lg:text-[88px]" />
         <p className="mt-3 font-display text-2xl font-semibold text-fg">
-          What's your Scroll Quotient?
+          What's your Scroll Budget?
         </p>
         <p className="mt-3 max-w-[30ch] text-base leading-relaxed text-muted">
           100 coins of attention. A feed that never ends. Spend them on what's worth it.

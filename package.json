@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.1.0",
   "type": "module",
-  "description": "ScrollQ (Scroll Quotient): a game that teaches students to spend their attention wisely on social feeds.",
+  "description": "ScrollQ (Scroll Budget): a game that teaches students to spend their attention wisely on social feeds.",
   "engines": {
     "node": ">=20.19"
   },

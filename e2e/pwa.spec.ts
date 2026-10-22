@@ -37,7 +37,7 @@ test('curated rounds work fully offline after the first visit', async ({ page, c
 
   await context.setOffline(true);
   await page.goto('/');
-  await expect(page.getByText("What's your Scroll Quotient?")).toBeVisible();
+  await expect(page.getByText("What's your Scroll Budget?")).toBeVisible();
 
   // Every screen of a round was precached, not just the ones already visited.
   await startRound(page, 'Vertical');

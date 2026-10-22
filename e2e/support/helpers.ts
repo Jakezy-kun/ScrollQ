@@ -38,7 +38,7 @@ export async function skipOnboarding(page: Page) {
   await page.goto('/');
   await expect(page).toHaveURL(/\/welcome$/);
   await page.getByRole('button', { name: 'Skip' }).click();
-  await expect(page.getByText("What's your Scroll Quotient?")).toBeVisible();
+  await expect(page.getByText("What's your Scroll Budget?")).toBeVisible();
 }
 
 /** Start a curated round in the given feed style from the Start screen. */

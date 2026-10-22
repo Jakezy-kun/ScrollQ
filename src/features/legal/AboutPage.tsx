@@ -11,7 +11,7 @@ export function AboutPage() {
       title="About ScrollQ"
       intro={
         <>
-          <Wordmark className="text-2xl" /> stands for Scroll Quotient: how well you spend your
+          <Wordmark className="text-2xl" /> stands for Scroll Budget: how well you spend your
           attention when the feed never ends.
         </>
       }

@@ -56,7 +56,7 @@ const SLIDES: { title: string; body: string; visual: ReactNode }[] = [
     ),
   },
   {
-    title: 'Get your Scroll Quotient',
+    title: 'Get your Scroll Budget',
     body: "At the end you'll see your SQ, which posts were worth it, and which ones were traps.",
     visual: <ScoreRing value={86} tone="mint" />,
   },

@@ -23,7 +23,7 @@ describe('Start', () => {
   it('shows the tagline, Play and How to Play once onboarding is seen', () => {
     usePrefs.setState({ onboardingSeen: true });
     renderRoute(ROUTES.start, <StartPage />);
-    expect(screen.getByText("What's your Scroll Quotient?")).toBeInTheDocument();
+    expect(screen.getByText("What's your Scroll Budget?")).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Play' })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'How to Play' })).toBeInTheDocument();
     expect(screen.getByText('12 posts · about 3 minutes')).toBeInTheDocument();
@@ -45,7 +45,7 @@ describe('Onboarding', () => {
     ).toBeInTheDocument();
     await user.click(screen.getByRole('button', { name: 'Next' }));
     expect(
-      await screen.findByRole('heading', { name: 'Get your Scroll Quotient' }),
+      await screen.findByRole('heading', { name: 'Get your Scroll Budget' }),
     ).toBeInTheDocument();
     await user.click(screen.getByRole('button', { name: 'Next' }));
 
